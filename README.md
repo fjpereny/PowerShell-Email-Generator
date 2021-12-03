@@ -1,1 +1,1 @@
-# PowerShell-Email-Generator
+# PowerShell Email Generator
