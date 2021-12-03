@@ -1,0 +1,23 @@
+Dear [OWNER],
+You have been assigned the following task.  Please confirm your estimated completion date as soon as possible.
+
+Task: [TASK]
+Status: [STATUS]
+Due Date: [TASK DUE]
+Project Name: [PROJECT NAME]
+Project Gate: [PROJECT GATE]
+Gate Due Date: [GATE DUE]
+
+For your convenience, the following documents have been attached to this email:
+ - NPD Gate Deliverable List
+ - Program PDS
+ - Latest Monthly PMO Review Slides
+ - Current NPD Program Dashboard
+
+ In the event the activity becomes past due, it will automatically be escalated and assigned to the following manager:
+
+[MANAGER]
+[MANAGER EMAIL]
+
+Thanks for your continued support,
+Sullair Program Management

@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <iostream>
+#include <QDir>
+#include <QFile>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),
@@ -16,6 +20,46 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::on_actionSave_triggered()
+{
+    QString xml = create_XML();
+
+    QDir dir;
+    QFile file(dir.currentPath() + "/save.xml");
+    if (file.open(QFile::WriteOnly))
+    {
+       QTextStream stream(&file);
+       stream << xml;
+    }
+    file.close();
+}
+
+
+QString MainWindow::create_XML()
+{
+    QString xml = "";
+    xml += "<?xml version=\"1.0\"?>\n";
+    xml += "<root>\n";
+    xml += "<project>\n";
+        QString project_name = ui->projectNameLineEdit->text();
+        xml += "<name>" + project_name + "</name>\n";
+        QString gate = ui->gateLineEdit->text();
+        xml += "<gate>" + gate + "</gate>\n";
+        QString due_date = ui->gateDueLineEdit->text();
+        xml += "<due>" + due_date + "</due>\n";
+    xml += "</project>\n";
+
+    xml += "<email>\n";
+        QString subject = ui->emailSubject->text();
+        xml += "<subject>" + subject + "</subject>\n";
+        QString body = ui->emailBody->toPlainText();
+        xml += "<body>" + body + "</body>\n";
+    xml += "</email>\n";
+    xml += "</root>\n";
+    return xml;
 }
 
 
@@ -263,4 +307,49 @@ void MainWindow::on_dueDateButton_clicked()
         }
     }
 }
+
+
+void MainWindow::on_generateButton_clicked()
+{
+    QString project_name = ui->projectNameLineEdit->text();
+    QString project_gate = ui->gateLineEdit->text();
+    QString gate_due = ui->gateDueLineEdit->text();
+    QString subject = ui->emailSubject->text();
+    QString script_name = ui->scriptNameLineEdit->text();
+    QString body = ui->emailBody->toPlainText();
+
+    subject.replace("[PROJECT NAME]", project_name);
+    subject.replace("[PROJECT GATE]", project_gate);
+    subject.replace("[GATE DUE]", gate_due);
+
+    body.replace("[PROJECT NAME]", project_name);
+    body.replace("[PROJECT GATE]", project_gate);
+    body.replace("[GATE DUE]", gate_due);
+
+    createMailScript("test@email.com", "", "", subject, body, "");
+}
+
+
+void MainWindow::createMailScript(QString to,
+                                  QString cc,
+                                  QString bcc,
+                                  QString subject,
+                                  QString body,
+                                  QString attachments)
+{
+    QString script = "";
+
+    script += "Add-Type -assembly \"Microsoft.Office.Interop.Outlook\"\n";
+    script += "$Outlook = New-Object -comobject Outlook.Application\n";
+    script += "$Mail = $Outlook.CreateItem(0)\n";
+    script += "$Mail.To = " + to + "\n";
+    script += "$Mail.Cc = " + cc + "\n";
+    script += "$Mail.Bcc = " + bcc + "\n";
+    script += "$Mail.Subject = \"" + subject + "\"\n";
+    script += "Mail.Body = \"" + body + "\"\n";
+    script += "Mail.Send()";
+
+    std::cout << script.toStdString() << std::endl;
+}
+
 

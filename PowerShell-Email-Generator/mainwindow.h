@@ -16,7 +16,10 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_actionSave_triggered();
     void on_actionClose_triggered();
+
+    QString create_XML();
 
     void on_projectNameButton_clicked();
     void on_projectGateButton_clicked();
@@ -28,6 +31,15 @@ private slots:
     void on_managerEmailButton_clicked();
     void on_statusButton_clicked();
     void on_dueDateButton_clicked();
+
+    void on_generateButton_clicked();
+
+    void createMailScript(QString to = "",
+                          QString cc = "",
+                          QString bcc = "",
+                          QString subject = "",
+                          QString body = "",
+                          QString attachments = "");
 
 private:
     Ui::MainWindow *ui;
