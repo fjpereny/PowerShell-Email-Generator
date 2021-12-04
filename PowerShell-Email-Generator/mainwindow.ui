@@ -14,7 +14,7 @@
    <string>Project Management PowerShell Script Generator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_7">
+   <layout class="QHBoxLayout" name="horizontalLayout_8">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
@@ -266,102 +266,166 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
+     <layout class="QVBoxLayout" name="verticalLayout_8">
       <item>
-       <widget class="QLabel" name="label_10">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Task Data Table</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Task Data Table</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Today's Date</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="todayEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Late Tasks</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="lateTasksSpinBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget">
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="rowCount">
-         <number>1</number>
-        </property>
-        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-         <bool>false</bool>
-        </attribute>
-        <row/>
-        <column>
-         <property name="text">
-          <string>Task</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Owner</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Owner Email</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Manager</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Manager Email</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Status</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Due Date</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Script Name:</string>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="alternatingRowColors">
+           <bool>true</bool>
           </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="rowCount">
+           <number>3</number>
+          </property>
+          <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <row/>
+          <row/>
+          <row/>
+          <column>
+           <property name="text">
+            <string>Task</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Owner</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Owner Email</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Manager</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Manager Email</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Status</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Due Date</string>
+           </property>
+          </column>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="scriptNameLineEdit"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>.ps1</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="generateButton">
-          <property name="text">
-           <string>Generate Powershell Script</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="generateButton">
+            <property name="text">
+             <string>Generate Powershell Script</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -384,6 +448,8 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionGenerate_PowerShell_Script"/>
     <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
@@ -415,6 +481,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionGenerate_PowerShell_Script">
+   <property name="text">
+    <string>Generate PowerShell Script</string>
    </property>
   </action>
  </widget>

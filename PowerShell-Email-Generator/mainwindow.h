@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <tinyxml2.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,10 +17,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionSave_triggered();
+    void on_actionOpen_triggered();
+    bool on_actionSave_triggered();
     void on_actionClose_triggered();
+    void on_actionGenerate_PowerShell_Script_triggered();
 
-    QString create_XML();
+    tinyxml2::XMLDocument* create_XML();
 
     void on_projectNameButton_clicked();
     void on_projectGateButton_clicked();
@@ -34,12 +37,15 @@ private slots:
 
     void on_generateButton_clicked();
 
-    void createMailScript(QString to = "",
+    QString create_script_header();
+    QString createMailScript(QString to = "",
                           QString cc = "",
                           QString bcc = "",
                           QString subject = "",
                           QString body = "",
                           QString attachments = "");
+
+    void generate_script();
 
 private:
     Ui::MainWindow *ui;

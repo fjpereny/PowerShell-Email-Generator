@@ -1,0 +1,16 @@
+<root>
+    <save_date>Sat Dec 4 2021</save_date>
+    <project>
+        <project_name></project_name>
+        <project_gate></project_gate>
+        <project_gate_due></project_gate_due>
+    </project>
+    <email>
+        <to/>
+        <cc/>
+        <bcc/>
+        <subject></subject>
+        <body></body>
+        <attachments/>
+    </email>
+</root>
