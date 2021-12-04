@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QDate>
+#include <QKeyEvent>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
     ui->todayEdit->setDate(QDate::currentDate());
 
@@ -499,3 +501,31 @@ void MainWindow::generate_script()
     }
 }
 
+
+void MainWindow::on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+{
+    int last_row = ui->tableWidget->rowCount() - 1;
+    int cols = ui->tableWidget->columnCount();
+    for (int col=0; col<cols; ++col)
+    {
+        if (QTableWidgetItem *item = ui->tableWidget->item(last_row, col))
+        {
+            if (item->text() != "")
+                ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+        }
+    }
+}
+
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    // Move to next cell down or add row on return
+    if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) && ui->tableWidget->hasFocus())
+    {
+        QAbstractItemModel *model = ui->tableWidget->model();
+        QModelIndex current_index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+        QModelIndex next_index = model->index(current_index.row(), current_index.column() + 1);
+        ui->tableWidget->selectionModel()->clear();
+        ui->tableWidget->selectionModel()->select(next_index, QItemSelectionModel::Select);
+    }
+}

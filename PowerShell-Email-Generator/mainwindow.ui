@@ -121,7 +121,7 @@
           <item>
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Tex Variables</string>
+             <string>Text Variables</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -358,13 +358,11 @@
            <bool>true</bool>
           </property>
           <property name="rowCount">
-           <number>3</number>
+           <number>1</number>
           </property>
           <attribute name="verticalHeaderShowSortIndicator" stdset="0">
            <bool>false</bool>
           </attribute>
-          <row/>
-          <row/>
           <row/>
           <column>
            <property name="text">

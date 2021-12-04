@@ -1,0 +1,37 @@
+<root>
+    <save_date>Sun Dec 5 2021</save_date>
+    <project>
+        <project_name>Trail Park Program</project_name>
+        <project_gate>Launch</project_gate>
+        <project_gate_due>12-1-21</project_gate_due>
+    </project>
+    <email>
+        <to/>
+        <cc/>
+        <bcc/>
+        <subject>[PROJECT NAME] - [TASK] - [OWNER] - DUE [TASK DUE] - STATUS: [STATUS]</subject>
+        <body>	Dear [OWNER],
+You have been assigned the following task.  Please confirm your estimated completion date as soon as possible.
+
+Task: [TASK]
+Status: [STATUS]
+Due Date: [TASK DUE]
+Project Name: [PROJECT NAME]
+Project Gate: [PROJECT GATE]
+Gate Due Date: [GATE DUE]
+
+For your convenience, the following documents have been attached to this email:
+
+- [ATTACHMENTS]
+
+ In the event the activity becomes past due, it will automatically be escalated and assigned to the following manager:
+
+[MANAGER]
+[MANAGER EMAIL]
+
+Thanks for your continued support,
+Sullair Program Management
+</body>
+        <attachments/>
+    </email>
+</root>

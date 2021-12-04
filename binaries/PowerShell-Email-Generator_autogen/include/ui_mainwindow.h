@@ -368,13 +368,13 @@ public:
         tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
-        if (tableWidget->rowCount() < 3)
-            tableWidget->setRowCount(3);
+        if (tableWidget->rowCount() < 1)
+            tableWidget->setRowCount(1);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
         tableWidget->setAlternatingRowColors(true);
         tableWidget->setSortingEnabled(true);
         tableWidget->setWordWrap(true);
-        tableWidget->setRowCount(3);
+        tableWidget->setRowCount(1);
         tableWidget->verticalHeader()->setProperty("showSortIndicator", QVariant(false));
 
         verticalLayout_6->addWidget(tableWidget);
@@ -440,7 +440,7 @@ public:
         label_4->setText(QCoreApplication::translate("MainWindow", "Project Gate:", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Gate Due Date", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Email Subject", nullptr));
-        label_6->setText(QCoreApplication::translate("MainWindow", "Tex Variables", nullptr));
+        label_6->setText(QCoreApplication::translate("MainWindow", "Text Variables", nullptr));
         projectNameButton->setText(QCoreApplication::translate("MainWindow", "Project Name", nullptr));
         projectGateButton->setText(QCoreApplication::translate("MainWindow", "Project Gate", nullptr));
         gateDueButton->setText(QCoreApplication::translate("MainWindow", "Gate Due Date", nullptr));

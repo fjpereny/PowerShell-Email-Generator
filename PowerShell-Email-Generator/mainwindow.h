@@ -47,6 +47,10 @@ private slots:
 
     void generate_script();
 
+    void on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     Ui::MainWindow *ui;
     QWidget *last_focused_widget;
