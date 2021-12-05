@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1161</width>
-    <height>619</height>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Project Management PowerShell Script Generator</string>
+   <string>PowerShell Email Generator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_9">

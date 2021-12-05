@@ -4,7 +4,7 @@
         <project_name>DS 45-75kW</project_name>
         <project_gate>Launch Readiness</project_gate>
         <project_gate_due>12-1-21</project_gate_due>
-        <attachment_path>test</attachment_path>
+        <attachment_path>c:</attachment_path>
     </project>
     <email>
         <to/>
@@ -39,29 +39,29 @@ Sullair Program Management
     </email>
     <task_table>
         <row_0>
-            <col_0>Task 1</col_0>
+            <col_0>PPAP Documents</col_0>
             <col_1>Frank Pereny</col_1>
             <col_2>frank.pereny@sullair.com</col_2>
-            <col_3>John Randall</col_3>
-            <col_4>j.r@s.com</col_4>
+            <col_3>Admit Godbole</col_3>
+            <col_4>amit.godbole@sullair.com</col_4>
             <col_5>Late</col_5>
             <col_6>12-1-21</col_6>
         </row_0>
         <row_1>
-            <col_0>Task 2</col_0>
-            <col_1>Bob</col_1>
-            <col_2>fjpereny@gmail.com</col_2>
-            <col_3>Jim</col_3>
-            <col_4>k@k.com</col_4>
+            <col_0>DVPR Review</col_0>
+            <col_1>Frank Pereny</col_1>
+            <col_2>frank.pereny@sullair.com</col_2>
+            <col_3>Amit Godbole</col_3>
+            <col_4>amit.godbole@sullair.com</col_4>
             <col_5>Incomplete</col_5>
             <col_6>12-31-21</col_6>
         </row_1>
         <row_2>
-            <col_0>Task 3</col_0>
+            <col_0>Gate Signoff</col_0>
             <col_1>Frank Pereny</col_1>
             <col_2>frank.pereny@sullair.com</col_2>
-            <col_3>John Randall</col_3>
-            <col_4>j.r@s.com</col_4>
+            <col_3>Amit Godbole</col_3>
+            <col_4>amit.godbole@sullair.com</col_4>
             <col_5>Incomplete</col_5>
             <col_6>12-31-21</col_6>
         </row_2>

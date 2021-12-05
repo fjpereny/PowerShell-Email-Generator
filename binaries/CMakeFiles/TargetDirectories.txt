@@ -1,0 +1,5 @@
+/home/frank/GitHub/PowerShell-Email-Generator/binaries/CMakeFiles/rebuild_cache.dir
+/home/frank/GitHub/PowerShell-Email-Generator/binaries/CMakeFiles/edit_cache.dir
+/home/frank/GitHub/PowerShell-Email-Generator/binaries/CMakeFiles/PowerShell-Email-Generator.dir
+/home/frank/GitHub/PowerShell-Email-Generator/binaries/CMakeFiles/PowerShell-Email-Generator_autogen_timestamp_deps.dir
+/home/frank/GitHub/PowerShell-Email-Generator/binaries/CMakeFiles/PowerShell-Email-Generator_autogen.dir

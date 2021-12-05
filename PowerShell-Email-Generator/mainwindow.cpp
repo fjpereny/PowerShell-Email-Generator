@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "ui_mainwindow.h"
 #include "tinyxml2.h"
 
 #include <iostream>
@@ -39,7 +39,7 @@ void MainWindow::on_actionOpen_triggered()
 {
     QString file_path = QFileDialog::getOpenFileName(this,
                                                      "Open File",
-                                                     QDir::currentPath(),
+                                                     QDir::toNativeSeparators(QDir::currentPath()),
                                                      "XML Files (*.xml)\n"
                                                      "All Files (*.*)"
                                                      );
@@ -60,6 +60,8 @@ void MainWindow::on_actionOpen_triggered()
         ui->gateLineEdit->setText(element_2->GetText());
         element_2 = element_1->FirstChildElement("project_gate_due");
         ui->gateDueLineEdit->setText(element_2->GetText());
+        element_2 = element_1->FirstChildElement("attachment_path");
+        ui->attachmentPathLineEdit->setText(element_2->GetText());
 
     element_1 = root->FirstChildElement("email");
         element_2 = element_1->FirstChildElement("subject");
@@ -106,7 +108,7 @@ bool MainWindow::on_actionSave_triggered()
 
     QString save_file_path = QFileDialog::getSaveFileName(this,
                                                 "Save File",
-                                                QDir::currentPath(),
+                                                QDir::toNativeSeparators(QDir::currentPath()),
                                                 "XML Files (*.xml)\n"
                                                 "All Files (*.*)");
     if (save_file_path.isEmpty())
@@ -151,12 +153,15 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
         tinyxml2::XMLElement *project_name = xmlDoc->NewElement("project_name");
         tinyxml2::XMLElement *project_gate = xmlDoc->NewElement("project_gate");
         tinyxml2::XMLElement *project_gate_due = xmlDoc->NewElement("project_gate_due");
+        tinyxml2::XMLElement *attachment_path = xmlDoc->NewElement("attachment_path");
         project_name->SetText(ui->projectNameLineEdit->text().toStdString().c_str());
         project_gate->SetText(ui->gateLineEdit->text().toStdString().c_str());
         project_gate_due->SetText(ui->gateDueLineEdit->text().toStdString().c_str());
+        attachment_path->SetText(ui->attachmentPathLineEdit->text().toStdString().c_str());
         project->InsertEndChild(project_name);
         project->InsertEndChild(project_gate);
         project->InsertEndChild(project_gate_due);
+        project->InsertEndChild(attachment_path);
 
     tinyxml2::XMLElement *email = xmlDoc->NewElement("email");
     root->InsertEndChild(email);
@@ -481,7 +486,7 @@ QString MainWindow::createMailScript(QString to,
     script += "$files = Get-ChildItem -Path \"" + attachments + "\" -File\n";
     script += "foreach($file in $files)\n";
     script += "{\n";
-    script += "$Mail.Attachments.Add(" + attachments + "$file)\n";
+    script += "$Mail.Attachments.Add(\"" + attachments + "\" + $file)\n";
     script += "}\n";
 
     script += "$Mail.Send()\n";
@@ -496,7 +501,7 @@ void MainWindow::generate_script()
 
     QString save_file_path = QFileDialog::getSaveFileName(this,
                                                           "Save PowerShell Script",
-                                                          QDir::currentPath(),
+                                                          QDir::toNativeSeparators(QDir::currentPath()),
                                                           "PowerShell Script (*.ps1)");
 
     if (save_file_path.isEmpty())
@@ -508,7 +513,11 @@ void MainWindow::generate_script()
     QString project_name = ui->projectNameLineEdit->text();
     QString project_gate = ui->gateLineEdit->text();
     QString gate_due = ui->gateDueLineEdit->text();
+
     QString attachments = ui->attachmentPathLineEdit->text();
+    if (attachments.back() != '/' && attachments.back() != '\\')
+        attachments += '/';
+    attachments = QDir::toNativeSeparators(attachments);
 
     QString subject;
     QString body;
@@ -556,7 +565,7 @@ void MainWindow::generate_script()
         body.replace("[STATUS]", status);
         body.replace("[TASK DUE]", task_due);        
 
-        script += createMailScript(owner_email, manager_email, "\"\"", subject, body, attachments);
+        script += createMailScript(owner_email, manager_email, "", subject, body, attachments);
 
     }
 
@@ -603,6 +612,6 @@ void MainWindow::on_selectFolderButton_clicked()
 {
     QString folder_path = QFileDialog::getExistingDirectory(this,
                                                           "Select Attachments Folder",
-                                                          QDir::currentPath());
+                                                          QDir::toNativeSeparators(QDir::currentPath()));
     ui->attachmentPathLineEdit->setText(folder_path);
 }
