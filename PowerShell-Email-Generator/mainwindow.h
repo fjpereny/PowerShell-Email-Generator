@@ -47,9 +47,9 @@ private slots:
 
     void generate_script();
 
-    void on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
-
     void keyPressEvent(QKeyEvent *event);
+
+    void on_selectFolderButton_clicked();
 
 private:
     Ui::MainWindow *ui;

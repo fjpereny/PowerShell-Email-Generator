@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
     ui->todayEdit->setDate(QDate::currentDate());
+    ui->todayEdit->setButtonSymbols(QSpinBox::NoButtons);
+
+    ui->lateTasksSpinBox->setButtonSymbols(QSpinBox::NoButtons);
 
     last_focused_widget = nullptr;
 }
@@ -63,8 +66,39 @@ void MainWindow::on_actionOpen_triggered()
         ui->emailSubject->setText(element_2->GetText());
         element_2 = element_1->FirstChildElement("body");
         ui->emailBody->setPlainText(element_2->GetText());
-}
 
+    tinyxml2::XMLElement *table_element, *row_element, *col_element;
+    table_element = root->FirstChildElement("task_table");
+
+    int xml_row_count = 0;
+    QString  element_name = "row_" + QString::number(xml_row_count);
+    while (table_element->FirstChildElement(element_name.toStdString().c_str()))
+    {
+        ++xml_row_count;
+        element_name = "row_" + QString::number(xml_row_count);
+    }
+
+    ui->tableWidget->setRowCount(xml_row_count);
+    for (int row=0; row<xml_row_count; ++row)
+    {
+        for (int col=0; col<ui->tableWidget->columnCount(); ++col)
+        {
+            QString row_name = "row_" + QString::number(row);
+            QString col_name = "col_" + QString::number(col);
+
+            row_element = table_element->FirstChildElement(row_name.toStdString().c_str());
+            col_element = row_element->FirstChildElement(col_name.toStdString().c_str());
+
+            QTableWidgetItem *item;
+            if (!(item = ui->tableWidget->item(row, col)))
+            {
+                item = new QTableWidgetItem();
+                ui->tableWidget->setItem(row, col, item);
+            }
+            item->setText(col_element->GetText());
+        }
+    }
+}
 
 bool MainWindow::on_actionSave_triggered()
 {
@@ -143,6 +177,30 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
         // bcc code
         subject->SetText(ui->emailSubject->text().toStdString().c_str());
         body->SetText(ui->emailBody->toPlainText().toStdString().c_str());
+
+    tinyxml2::XMLElement *task_table = xmlDoc->NewElement("task_table");
+    root->InsertEndChild(task_table);
+        for (int row=0; row<ui->tableWidget->rowCount(); ++row)
+        {
+            QString row_name = "row_" + QString::number(row);
+            tinyxml2::XMLElement *new_row = xmlDoc->NewElement(row_name.toStdString().c_str());
+            task_table->InsertEndChild(new_row);
+
+            for (int col=0; col<ui->tableWidget->columnCount(); ++col)
+            {
+                QString col_name = "col_" + QString::number(col);
+                tinyxml2::XMLElement *new_col = xmlDoc->NewElement(col_name.toStdString().c_str());
+                new_row->InsertEndChild(new_col);
+
+                if (ui->tableWidget->item(row, col))
+                {
+                    QString cell_text = ui->tableWidget->item(row, col)->text();
+                    new_col->SetText(cell_text.toStdString().c_str());
+                }
+                else
+                    new_col->SetText("");
+            }
+        }
 
     return xmlDoc;
 }
@@ -412,12 +470,22 @@ QString MainWindow::createMailScript(QString to,
 {
     QString script = "";
     script += "$Mail = $Outlook.CreateItem(0)\n";
-    script += "$Mail.To = " + to + "\n";
-    script += "$Mail.Cc = " + cc + "\n";
-    script += "$Mail.Bcc = " + bcc + "\n";
+
+    script += "$Mail.To = \"" + to + "\"\n";
+    script += "$Mail.Cc = \"" + cc + "\"\n";
+    script += "$Mail.Bcc = \"" + bcc + "\"\n";
+
     script += "$Mail.Subject = \"" + subject + "\"\n";
-    script += "Mail.Body = \"" + body + "\"\n";
-    script += "Mail.Send()\n";
+    script += "$Mail.Body = \"" + body + "\"\n";
+
+    script += "$files = Get-ChildItem -Path \"" + attachments + "\" -File\n";
+    script += "foreach($file in $files)\n";
+    script += "{\n";
+    script += "$Mail.Attachments.Add(" + attachments + "$file)\n";
+    script += "}\n";
+
+    script += "$Mail.Send()\n";
+    script += "\n";
     return script;
 }
 
@@ -440,6 +508,7 @@ void MainWindow::generate_script()
     QString project_name = ui->projectNameLineEdit->text();
     QString project_gate = ui->gateLineEdit->text();
     QString gate_due = ui->gateDueLineEdit->text();
+    QString attachments = ui->attachmentPathLineEdit->text();
 
     QString subject;
     QString body;
@@ -485,9 +554,9 @@ void MainWindow::generate_script()
         body.replace("[MANAGER]", manager);
         body.replace("[MANAGER EMAIL]", manager_email);
         body.replace("[STATUS]", status);
-        body.replace("[TASK DUE]", task_due);
+        body.replace("[TASK DUE]", task_due);        
 
-        script += createMailScript(owner_email, manager_email, "", subject, body, "");
+        script += createMailScript(owner_email, manager_email, "\"\"", subject, body, attachments);
 
     }
 
@@ -501,22 +570,6 @@ void MainWindow::generate_script()
     }
 }
 
-
-void MainWindow::on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
-{
-    int last_row = ui->tableWidget->rowCount() - 1;
-    int cols = ui->tableWidget->columnCount();
-    for (int col=0; col<cols; ++col)
-    {
-        if (QTableWidgetItem *item = ui->tableWidget->item(last_row, col))
-        {
-            if (item->text() != "")
-                ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
-        }
-    }
-}
-
-
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     // Move to next cell down or add row on return
@@ -524,8 +577,32 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
         QAbstractItemModel *model = ui->tableWidget->model();
         QModelIndex current_index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
-        QModelIndex next_index = model->index(current_index.row(), current_index.column() + 1);
-        ui->tableWidget->selectionModel()->clear();
-        ui->tableWidget->selectionModel()->select(next_index, QItemSelectionModel::Select);
+        int last_row_index = ui->tableWidget->rowCount() - 1;
+
+        if (current_index.row() == last_row_index)
+            ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+
+        QModelIndex next_index = model->index(current_index.row() + 1, current_index.column());
+
+        ui->tableWidget->selectionModel()->select(next_index, QItemSelectionModel::ClearAndSelect);
+        ui->tableWidget->setCurrentIndex(next_index);
+
     }
+
+    if (event->key() == Qt::Key_Delete && ui->tableWidget->hasFocus())
+    {
+        QModelIndex index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+
+        ui->tableWidget->removeRow(index.row());
+        if (ui->tableWidget->rowCount() == 0)
+            ui->tableWidget->setRowCount(1);
+    }
+}
+
+void MainWindow::on_selectFolderButton_clicked()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this,
+                                                          "Select Attachments Folder",
+                                                          QDir::currentPath());
+    ui->attachmentPathLineEdit->setText(folder_path);
 }

@@ -14,7 +14,7 @@
    <string>Project Management PowerShell Script Generator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_8">
+   <layout class="QHBoxLayout" name="horizontalLayout_9">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
@@ -25,7 +25,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Email Setup</string>
+         <string>Project Information</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -83,14 +83,29 @@
          </layout>
         </item>
         <item>
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Email Setup</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <property name="spacing">
-           <number>14</number>
+           <number>38</number>
           </property>
           <item>
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>Email Subject</string>
+             <string>Subject</string>
             </property>
            </widget>
           </item>
@@ -98,6 +113,27 @@
            <widget class="QLineEdit" name="emailSubject"/>
           </item>
          </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Attachments</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="attachmentPathLineEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectFolderButton">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -250,7 +286,7 @@
             <item>
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Email Body</string>
+               <string>Body</string>
               </property>
              </widget>
             </item>
@@ -404,7 +440,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -419,7 +455,14 @@
           <item>
            <widget class="QPushButton" name="generateButton">
             <property name="text">
-             <string>Generate Powershell Script</string>
+             <string>Generate PowerShell Script</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Generate and Run PowerShell Script</string>
             </property>
            </widget>
           </item>
