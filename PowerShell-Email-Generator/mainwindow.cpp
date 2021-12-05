@@ -4,6 +4,7 @@
 #include "tinyxml2.h"
 
 #include <iostream>
+#include <QClipboard>
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
@@ -582,30 +583,92 @@ void MainWindow::generate_script()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    // Move to next cell down or add row on return
-    if ((event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) && ui->tableWidget->hasFocus())
+    if (ui->tableWidget->hasFocus())
     {
-        QAbstractItemModel *model = ui->tableWidget->model();
-        QModelIndex current_index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
-        int last_row_index = ui->tableWidget->rowCount() - 1;
+        // Move to next cell down or add row on return
+        if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+        {
+            QAbstractItemModel *model = ui->tableWidget->model();
+            QModelIndex current_index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+            int last_row_index = ui->tableWidget->rowCount() - 1;
 
-        if (current_index.row() == last_row_index)
-            ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+            if (current_index.row() == last_row_index)
+                ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
 
-        QModelIndex next_index = model->index(current_index.row() + 1, current_index.column());
+            QModelIndex next_index = model->index(current_index.row() + 1, current_index.column());
 
-        ui->tableWidget->selectionModel()->select(next_index, QItemSelectionModel::ClearAndSelect);
-        ui->tableWidget->setCurrentIndex(next_index);
+            ui->tableWidget->selectionModel()->select(next_index, QItemSelectionModel::ClearAndSelect);
+            ui->tableWidget->setCurrentIndex(next_index);
 
-    }
+        }
 
-    if (event->key() == Qt::Key_Delete && ui->tableWidget->hasFocus())
-    {
-        QModelIndex index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+        if (event->key() == Qt::Key_Delete)
+        {
+            QModelIndex index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
 
-        ui->tableWidget->removeRow(index.row());
-        if (ui->tableWidget->rowCount() == 0)
-            ui->tableWidget->setRowCount(1);
+            ui->tableWidget->removeRow(index.row());
+            if (ui->tableWidget->rowCount() == 0)
+                ui->tableWidget->setRowCount(1);
+        }
+
+        if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_C))
+        {
+            QString text;
+            QTableWidgetItem *item;
+            if ((item = ui->tableWidget->currentItem()))
+            {
+                text = item->text();
+            }
+            else
+            {
+                text = "";
+            }
+
+            QClipboard *cb = QApplication::clipboard();
+            cb->setText(text);
+        }
+
+        if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_V))
+        {
+            QClipboard *cb = QApplication::clipboard();
+
+            QTableWidgetItem *item;
+            if ((item = ui->tableWidget->currentItem()))
+            {
+                item->setText(cb->text());
+            }
+
+            else
+            {
+                QModelIndex index;
+                index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+                item = new QTableWidgetItem;
+                ui->tableWidget->setItem(index.row(), index.column(), item);
+                item->setText(cb->text());
+            }
+        }
+
+        if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_X))
+        {
+            QString text;
+
+            QModelIndex index;
+            index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+
+            QTableWidgetItem *item;
+            if ((item = ui->tableWidget->item(index.row(), index.column())))
+            {
+                text = item->text();
+                item->setText("");
+            }
+            else
+            {
+                text = "";
+            }
+
+            QClipboard *cb = QApplication::clipboard();
+            cb->setText(text);
+        }
     }
 }
 
