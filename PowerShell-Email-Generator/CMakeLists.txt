@@ -23,6 +23,10 @@ set(PROJECT_SOURCES
         
         tinyxml2.cpp
         tinyxml2.h
+
+        aboutwindow.cpp
+        aboutwindow.h
+        aboutwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -51,6 +51,8 @@ private slots:
 
     void on_selectFolderButton_clicked();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
     QWidget *last_focused_widget;

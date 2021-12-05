@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "aboutwindow.h"
 #include "tinyxml2.h"
 
 #include <iostream>
@@ -615,3 +616,10 @@ void MainWindow::on_selectFolderButton_clicked()
                                                           QDir::toNativeSeparators(QDir::currentPath()));
     ui->attachmentPathLineEdit->setText(folder_path);
 }
+
+void MainWindow::on_actionAbout_triggered()
+{
+    AboutWindow *win = new AboutWindow();
+    win->show();
+}
+
