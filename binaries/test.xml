@@ -1,0 +1,46 @@
+<root>
+    <save_date>Mon Dec 6 2021</save_date>
+    <project>
+        <project_name>Get Rich Quick</project_name>
+        <project_gate>Step 1</project_gate>
+        <project_gate_due>1-1-2022</project_gate_due>
+        <attachment_path>/home/attachments</attachment_path>
+    </project>
+    <email>
+        <to/>
+        <cc/>
+        <bcc/>
+        <subject>[PROJECT NAME] - [TASK]</subject>
+        <body>Hey there, this meail is to remind you to do your tasks ASAP!
+
+[OWNER]
+[TASK]
+[TASK DUE]
+[STATUS]
+
+If you don't do it ASAP, we are going to need to contact your boss!
+[MANAGER]
+[MANAGER EMAIL]</body>
+        <attachments/>
+    </email>
+    <task_table>
+        <row_0>
+            <col_0>Cut Grass</col_0>
+            <col_1>Frank</col_1>
+            <col_2>f@cut.grass</col_2>
+            <col_3>Bob Tillman</col_3>
+            <col_4>bob@lawn.mower</col_4>
+            <col_5>Incomplete</col_5>
+            <col_6>12-15-21</col_6>
+        </row_0>
+        <row_1>
+            <col_0>Check Couch</col_0>
+            <col_1>Anna</col_1>
+            <col_2>a@coin.cushion</col_2>
+            <col_3>Abe Lincoln</col_3>
+            <col_4>abe@penny.coin</col_4>
+            <col_5>Late</col_5>
+            <col_6>11-1-21</col_6>
+        </row_1>
+    </task_table>
+</root>

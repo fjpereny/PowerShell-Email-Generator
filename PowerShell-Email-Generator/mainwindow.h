@@ -49,9 +49,11 @@ private slots:
 
     void keyPressEvent(QKeyEvent *event);
 
-    void on_selectFolderButton_clicked();
-
+    void on_selectFolderButton1_clicked();
     void on_actionAbout_triggered();
+
+    void status_changed();
+    void set_date_color();
 
 private:
     Ui::MainWindow *ui;

@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1161</width>
-    <height>662</height>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>PowerShell Email Generator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_9">
+   <layout class="QHBoxLayout" name="horizontalLayout_13">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
@@ -120,6 +120,21 @@
        </layout>
       </item>
       <item>
+       <widget class="QLabel" name="label_17">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Email Attachment Folders</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_8">
         <property name="spacing">
          <number>7</number>
@@ -127,7 +142,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Attachments</string>
+           <string>Folder 1</string>
           </property>
          </widget>
         </item>
@@ -135,7 +150,103 @@
          <widget class="QLineEdit" name="attachmentPathLineEdit"/>
         </item>
         <item>
-         <widget class="QPushButton" name="selectFolderButton">
+         <widget class="QPushButton" name="selectFolderButton1">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>7</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Folder 2</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="attachment2PathLineEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectFolderButton2">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <property name="spacing">
+         <number>7</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Folder 3</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="attachment3PathLineEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectFolderButton3">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <property name="spacing">
+         <number>7</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>Folder 4</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="attachment4PathLineEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectFolderButton4">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <property name="spacing">
+         <number>7</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_16">
+          <property name="text">
+           <string>Folder 5</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="attachment5PathLineEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectFolderButton5">
           <property name="text">
            <string>Select Folder</string>
           </property>
@@ -433,12 +544,17 @@
           </column>
           <column>
            <property name="text">
+            <string>Due Date</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
             <string>Status</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Due Date</string>
+            <string>Update Day(s)</string>
            </property>
           </column>
          </widget>
