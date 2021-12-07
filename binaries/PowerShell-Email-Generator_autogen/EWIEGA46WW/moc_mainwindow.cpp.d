@@ -1,6 +1,7 @@
 /home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/EWIEGA46WW/moc_mainwindow.cpp: /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/mainwindow.h \
   /home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/moc_predefs.h \
   /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/tinyxml2.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qabstractitemmodel.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qalgorithms.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qanystringview.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qarraydata.h \
@@ -20,18 +21,24 @@
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qcontainerfwd.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qcontainerinfo.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qcontiguouscache.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qdatastream.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qdebug.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qflags.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qgenericatomic.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qglobal.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qglobalstatic.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qhash.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qhashfunctions.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qiodevicebase.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qitemselectionmodel.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qiterable.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qiterator.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qline.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qlist.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qlocale.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qlogging.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qmap.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qmargins.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qmath.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qmetacontainer.h \
@@ -49,14 +56,18 @@
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qpropertyprivate.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qrect.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qrefcount.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qregularexpression.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qscopedpointer.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qscopeguard.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qset.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qshareddata.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qshareddata_impl.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qsharedpointer.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qsize.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qstring.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qstringalgorithms.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qstringconverter.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qstringlist.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qstringliteral.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qstringmatcher.h \
@@ -66,9 +77,11 @@
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qsystemdetection.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qtaggedpointer.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qtcore-config.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qtextstream.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qtmetamacros.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qtypeinfo.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qutf8stringview.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qvariant.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qvarlengtharray.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qversiontagging.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtGui/qbitmap.h \
@@ -92,10 +105,25 @@
   /home/frank/Qt/6.2.1/gcc_64/include/QtGui/qtgui-config.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtGui/qtguiglobal.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtGui/qtransform.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtGui/qvalidator.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtGui/qwindowdefs.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/QMainWindow \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/QTableWidgetItem \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qabstractslider.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qframe.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qmainwindow.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qrubberband.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qslider.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qstyle.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qstyleoption.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qtabbar.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qtableview.h \
+  /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qtablewidget.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qtabwidget.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \

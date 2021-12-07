@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1161</width>
-    <height>798</height>
+    <width>1240</width>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -455,12 +455,85 @@
           <item>
            <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>Today's Date</string>
+             <string>Today</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDateEdit" name="todayEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="dateTime">
+             <datetime>
+              <hour>0</hour>
+              <minute>0</minute>
+              <second>0</second>
+              <year>2000</year>
+              <month>1</month>
+              <day>1</day>
+             </datetime>
+            </property>
+            <property name="currentSection">
+             <enum>QDateTimeEdit::DaySection</enum>
+            </property>
+            <property name="displayFormat">
+             <string>dddd,  MMMM dd, yyyy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>Last Update</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="lastUpdateDateEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="displayFormat">
+             <string>dddd, MMMM, dd, yyyy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Incomplete Tasks</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="incompleteSpinBox">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -475,6 +548,20 @@
           </item>
           <item>
            <widget class="QSpinBox" name="lateTasksSpinBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Complete Tasks</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="completeSpinBox">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -501,6 +588,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <widget class="QTableWidget" name="tableWidget">
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
           </property>
@@ -554,7 +644,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Update Day(s)</string>
+            <string>Days</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Included Attachments</string>
            </property>
           </column>
          </widget>
@@ -601,7 +696,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1161</width>
+     <width>1240</width>
      <height>23</height>
     </rect>
    </property>

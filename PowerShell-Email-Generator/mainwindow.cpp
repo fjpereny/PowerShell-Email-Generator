@@ -4,6 +4,8 @@
 #include "tinyxml2.h"
 
 #include <iostream>
+#include <set>
+#include <vector>
 #include <QClipboard>
 #include <QDir>
 #include <QFile>
@@ -17,41 +19,120 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow),
-      last_focused_widget(new QWidget)
+    , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    ui->tableWidget->resizeColumnsToContents();
-    ui->tableWidget->resizeRowsToContents();
-    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-
-    QDateEdit *dateEdit = new QDateEdit();
-    dateEdit->setButtonSymbols(QDateEdit::NoButtons);
-    dateEdit->setDate(QDate::currentDate());
-    ui->tableWidget->setCellWidget(0, 5, dateEdit);
-    dateEdit->connect(dateEdit,
-                      SIGNAL ( dateChanged(QDate) ),
-                      this,
-                      SLOT ( set_date_color() ));
-
-    QComboBox *statusCombo = new QComboBox();
-    statusCombo->addItem("Incomplete");
-    statusCombo->addItem("Late");
-    statusCombo->addItem("Complete");    
-    ui->tableWidget->setCellWidget(0, 6, statusCombo);
-    QObject::connect(statusCombo,
-                     SIGNAL( currentTextChanged(QString) ),
-                     this,
-                     SLOT( status_changed() ));
-
+    add_date_edit(0, 5);
+    add_status_combo(0, 6);
+    add_day_checkBox(0, 7);
+    add_folder_checkBox(0, 8);
 
     ui->todayEdit->setDate(QDate::currentDate());
     ui->todayEdit->setButtonSymbols(QDateEdit::NoButtons);
 
-    ui->lateTasksSpinBox->setButtonSymbols(QSpinBox::NoButtons);
+    ui->lastUpdateDateEdit->setDate(QDate::currentDate());
+    ui->lastUpdateDateEdit->setButtonSymbols(QDateEdit::NoButtons);
 
-    last_focused_widget = nullptr;
+    ui->incompleteSpinBox->setButtonSymbols(QSpinBox::NoButtons);
+    ui->lateTasksSpinBox->setButtonSymbols(QSpinBox::NoButtons);
+    ui->completeSpinBox->setButtonSymbols(QSpinBox::NoButtons);
+
+    ui->tableWidget->resizeRowsToContents();
+    ui->tableWidget->resizeColumnsToContents();
+}
+
+
+void MainWindow::add_date_edit(int cell_row, int cell_col)
+{
+    QFrame *dateFrame = new QFrame;
+    ui->tableWidget->setCellWidget(cell_row, cell_col, dateFrame);
+    QLayout *dateLayout = new QVBoxLayout;
+    dateFrame->setLayout(dateLayout);
+    dateLayout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    QDateEdit *dateEdit = new QDateEdit(dateFrame);
+    dateLayout->addWidget(dateEdit);
+    dateEdit->setObjectName("dateEdit");
+    dateEdit->setDisplayFormat("MMM-dd-yyyy");
+    dateEdit->setButtonSymbols(QDateEdit::NoButtons);
+    dateEdit->setDate(QDate::currentDate());
+}
+
+
+void MainWindow::add_status_combo(int cell_row, int cell_col)
+{
+    QFrame *statusFrame = new QFrame;
+    ui->tableWidget->setCellWidget(cell_row, cell_col, statusFrame);
+    QLayout *statusLayout = new QVBoxLayout;
+    statusFrame->setLayout(statusLayout);
+    statusLayout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    QComboBox *statusCombo = new QComboBox(statusFrame);
+    statusLayout->addWidget(statusCombo);
+    statusCombo->setObjectName("statusCombo");
+    statusCombo->addItem("Incomplete");
+    statusCombo->addItem("Complete");
+    QObject::connect(statusCombo,
+                     SIGNAL( currentTextChanged(QString) ),
+                     this,
+                     SLOT( status_changed() ));
+    ui->incompleteSpinBox->setValue(ui->incompleteSpinBox->value() + 1);
+}
+
+
+void MainWindow::add_day_checkBox(int cell_row, int cell_col)
+{
+    QFrame *dayCheckFrame = new QFrame;
+    ui->tableWidget->setCellWidget(cell_row, cell_col, dayCheckFrame);
+    QLayout *dayCheckLayout = new QVBoxLayout;
+    dayCheckFrame->setLayout(dayCheckLayout);
+    dayCheckLayout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    QCheckBox *cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Mon");
+    cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Tue");
+    cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Wed");
+    cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Thu");
+    cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Fri");
+    cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Sat");
+    cb = new QCheckBox();
+    dayCheckLayout->addWidget(cb);
+    cb->setText("Sun");
+}
+
+
+void MainWindow::add_folder_checkBox(int cell_row, int cell_col)
+{
+    QCheckBox *cb;
+    QFrame *folderCheckFrame = new QFrame;
+    ui->tableWidget->setCellWidget(cell_row, cell_col, folderCheckFrame);
+    QLayout *folderCheckLayout = new QVBoxLayout;
+    folderCheckFrame->setLayout(folderCheckLayout);
+    folderCheckLayout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    cb = new QCheckBox();
+    folderCheckLayout->addWidget(cb);
+    cb->setText("Folder 1");
+    cb = new QCheckBox();
+    folderCheckLayout->addWidget(cb);
+    cb->setText("Folder 2");
+    cb = new QCheckBox();
+    folderCheckLayout->addWidget(cb);
+    cb->setText("Folder 3");
+    cb = new QCheckBox();
+    folderCheckLayout->addWidget(cb);
+    cb->setText("Folder 4");
+    cb = new QCheckBox();
+    folderCheckLayout->addWidget(cb);
+    cb->setText("Folder 5");
 }
 
 
@@ -613,88 +694,81 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         // Move to next cell down or add row on return
         if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
         {
-            QAbstractItemModel *model = ui->tableWidget->model();
             QModelIndex current_index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
             int last_row_index = ui->tableWidget->rowCount() - 1;
 
             if (current_index.row() == last_row_index)
             {
                 ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+                ++last_row_index;
 
-                QDateEdit *dateEdit = new QDateEdit();
-                dateEdit->setButtonSymbols(QDateEdit::NoButtons);
-                dateEdit->setDate(QDate::currentDate());
-                ui->tableWidget->setCellWidget(ui->tableWidget->rowCount() - 1, 5, dateEdit);
-                dateEdit->connect(dateEdit,
-                                  SIGNAL ( dateChanged(QDate) ),
-                                  this,
-                                  SLOT ( set_date_color() ));
-
-                QComboBox *statusCombo = new QComboBox();
-                statusCombo->addItem("Incomplete");
-                statusCombo->addItem("Late");
-                statusCombo->addItem("Complete");
-                ui->tableWidget->setCellWidget(ui->tableWidget->rowCount() - 1, 6, statusCombo);
-                QObject::connect(statusCombo,
-                                 SIGNAL( currentTextChanged(QString) ),
-                                 this,
-                                 SLOT( status_changed() )
-                                 );
+                add_date_edit(last_row_index, 5);
+                add_status_combo(last_row_index, 6);
+                add_day_checkBox(last_row_index, 7);
+                add_folder_checkBox(last_row_index, 8);
             }
 
-            QModelIndex next_index = model->index(current_index.row() + 1, current_index.column());
+            QModelIndex current_selected = ui->tableWidget->selectionModel()->currentIndex();
+            QModelIndex next_index = ui->tableWidget->model()->index(last_row_index,
+                                                                     current_selected.column());
 
-            ui->tableWidget->selectionModel()->select(next_index, QItemSelectionModel::ClearAndSelect);
+            QTableWidgetItem *next_item = ui->tableWidget->itemFromIndex(next_index);
+            if (!next_item)
+            {
+                next_item = new QTableWidgetItem;
+                ui->tableWidget->setItem(next_index.row(), next_index.column(), next_item);
+            }
             ui->tableWidget->setCurrentIndex(next_index);
         }
 
         if (event->key() == Qt::Key_Delete)
         {
             QList<QModelIndex> index_list = ui->tableWidget->selectionModel()->selectedIndexes();
-            if (index_list.size() >= 1)
+            QList<int> row_values;
+            for (QModelIndex index : index_list)
+                row_values.push_back(index.row());
+
+            std::set row_set(row_values.begin(), row_values.end());
+            std::vector<int> vec_set(row_set.begin(), row_set.end());
+            ui->tableWidget->selectionModel()->clear();
+            for (int i=vec_set.size()-1; i>=0; --i)
             {
-                for (auto index : index_list)
-                    ui->tableWidget->removeRow(index.row());
+                ui->tableWidget->removeRow(vec_set[i]);
+            }
 
-                if (ui->tableWidget->rowCount() == 0)
-                {
-                    ui->tableWidget->setRowCount(1);
-
-                    QDateEdit *dateEdit = new QDateEdit();
-                    dateEdit->setButtonSymbols(QDateEdit::NoButtons);
-                    dateEdit->setDate(QDate::currentDate());
-                    ui->tableWidget->setCellWidget(0, 5, dateEdit);
-                    dateEdit->connect(dateEdit,
-                                      SIGNAL ( dateChanged(QDate) ),
-                                      this,
-                                      SLOT ( set_date_color() ));
-
-                    QComboBox *statusCombo = new QComboBox();
-                    statusCombo->addItem("Incomplete");
-                    statusCombo->addItem("Late");
-                    statusCombo->addItem("Complete");
-                    ui->tableWidget->setCellWidget(0, 6, statusCombo);
-                    QObject::connect(statusCombo,
-                                     SIGNAL( currentTextChanged(QString) ),
-                                     this,
-                                     SLOT( status_changed() ));
-                }
+            if (ui->tableWidget->rowCount() == 0)
+            {
+                ui->tableWidget->setRowCount(1);
+                add_date_edit(0, 5);
+                add_status_combo(0, 6);
+                add_day_checkBox(0, 7);
+                add_folder_checkBox(0, 8);
             }
         }
 
 
         if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_C))
         {
-            QString text;
-            QTableWidgetItem *item;
-            if ((item = ui->tableWidget->currentItem()))
+            QString text = "";
+            QItemSelectionModel *model;
+            model = ui->tableWidget->selectionModel();
+            QModelIndexList index_list = model->selectedIndexes();
+
+            int prev_row = index_list.at(0).row();
+            for (QModelIndex index : index_list)
             {
-                text = item->text();
+                if (index.row() == prev_row)
+                    text += '\t';
+                else
+                    text += '\n';
+
+                if (ui->tableWidget->itemFromIndex(index))
+                    text += ui->tableWidget->itemFromIndex(index)->text();
+                else
+                    text += "";
+                prev_row = index.row();
             }
-            else
-            {
-                text = "";
-            }
+            text = text.trimmed();
 
             QClipboard *cb = QApplication::clipboard();
             cb->setText(text);
@@ -702,22 +776,40 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
         if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_V))
         {
-            QClipboard *cb = QApplication::clipboard();
+            QClipboard *cb = QApplication::clipboard();            
+            QList<QString> stringList = cb->text().split('\t');
 
-            QTableWidgetItem *item;
-            if ((item = ui->tableWidget->currentItem()))
+            QItemSelectionModel *model = ui->tableWidget->selectionModel();
+            QModelIndex first_index = model->selectedIndexes().front();
+            int row_start = first_index.row();
+            int col_start = first_index.column();
+
+            for (QString text : stringList)
             {
-                item->setText(cb->text());
+                if (text.contains('\n'))
+                    ++row_start;
+
+                if (row_start >= ui->tableWidget->rowCount())
+                    break;
+                else
+                    ui->tableWidget->itemAt(row_start, col_start)->setText(text);
             }
 
-            else
-            {
-                QModelIndex index;
-                index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
-                item = new QTableWidgetItem;
-                ui->tableWidget->setItem(index.row(), index.column(), item);
-                item->setText(cb->text());
-            }
+
+//            QTableWidgetItem *item;
+//            if ((item = ui->tableWidget->currentItem()))
+//            {
+//                item->setText(cb->text());
+//            }
+
+//            else
+//            {
+//                QModelIndex index;
+//                index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
+//                item = new QTableWidgetItem;
+//                ui->tableWidget->setItem(index.row(), index.column(), item);
+//                item->setText(cb->text());
+//            }
         }
 
         if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_X))
@@ -761,50 +853,70 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::status_changed()
 {
-    QComboBox *cb = qobject_cast<QComboBox*>(QObject::sender());
-    if (cb->currentText() == "Late")
-    {
-        int late_count = ui->lateTasksSpinBox->value();
-        late_count += 1;
-        ui->lateTasksSpinBox->setValue(late_count);
+    int incomplete = 0, late = 0, complete = 0;
 
-        cb->setStyleSheet("background-color : red;"
-                          "color: black;"
-                          );
-    }
-    else if (cb->currentText() == "Incomplete")
+    QWidget *frame, *dateFrame;
+    QComboBox *cb;
+    QDateEdit *dateEdit;
+    for (int row=0; row<ui->tableWidget->rowCount(); ++row)
     {
-        int late_count = ui->lateTasksSpinBox->value();
-        late_count -= 1;
-        ui->lateTasksSpinBox->setValue(late_count);
+        frame = ui->tableWidget->cellWidget(row, 6);
+        cb = frame->findChild<QComboBox*>("statusCombo");
 
-        cb->setStyleSheet("background-color : yellow;"
-                          "color: black");
-    }
-    else if (cb->currentText() == "Complete")
-    {
-        int late_count = ui->lateTasksSpinBox->value();
-        late_count -= 1;
-        ui->lateTasksSpinBox->setValue(late_count);
+        dateFrame = ui->tableWidget->cellWidget(row, 5);
+        dateEdit = dateFrame->findChild<QDateEdit*>("dateEdit");
 
-        cb->setStyleSheet("background-color : green;"
-                          "color: black");
+        if (cb->currentText() == "Complete")
+            ++complete;
+        else if (cb->currentText() == "Incomplete")
+         {
+            ++incomplete;
+            if (dateEdit->date() < ui->todayEdit->date())
+                ++late;
+         }
     }
+    ui->incompleteSpinBox->setValue(incomplete);
+    ui->lateTasksSpinBox->setValue(late);
+    ui->completeSpinBox->setValue(complete);
+    set_date_color();
 }
 
 
 void MainWindow::set_date_color()
 {
-    QDateEdit *dateEdit = qobject_cast<QDateEdit*>(QObject::sender());
-    if (dateEdit->date() <= ui->todayEdit->date())
+    for (int i=0; i<ui->tableWidget->rowCount(); ++i)
     {
-        dateEdit->setStyleSheet("background-color : red;"
-                                "color : white;"
-                               );
+        QWidget *dateFrame = ui->tableWidget->cellWidget(i, 5);
+        QDateEdit *dateEdit = dateFrame->findChild<QDateEdit*>("dateEdit");
+        QWidget *statusFrame = ui->tableWidget->cellWidget(i, 6);
+        QComboBox *cb = statusFrame->findChild<QComboBox*>("statusCombo");
+
+        if (dateEdit->date() < ui->todayEdit->date() && cb->currentText() == "Incomplete")
+        {
+            dateEdit->setStyleSheet("background-color: red;"
+                                    "color: white;");
+        }
+
+        else
+        {
+            dateEdit->setStyleSheet("");
+        }
     }
 
-    else
-    {
-        dateEdit->setStyleSheet("");
-    }
 }
+
+
+void MainWindow::on_tableWidget_itemChanged(QTableWidgetItem *item)
+{
+    ui->tableWidget->resizeRowsToContents();
+    ui->tableWidget->resizeColumnsToContents();
+}
+
+
+void MainWindow::on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+{
+    status_changed();
+    ui->tableWidget->resizeRowsToContents();
+    ui->tableWidget->resizeColumnsToContents();
+}
+

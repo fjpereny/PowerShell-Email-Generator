@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTableWidgetItem>
 #include <tinyxml2.h>
 
 QT_BEGIN_NAMESPACE
@@ -17,6 +18,11 @@ public:
     ~MainWindow();
 
 private slots:
+    void add_date_edit(int cell_row, int cell_col);
+    void add_status_combo(int cell_row, int cell_col);
+    void add_day_checkBox(int cell_row, int cell_col);
+    void add_folder_checkBox(int cell_row, int cell_col);
+
     void on_actionOpen_triggered();
     bool on_actionSave_triggered();
     void on_actionClose_triggered();
@@ -55,8 +61,11 @@ private slots:
     void status_changed();
     void set_date_color();
 
+    void on_tableWidget_itemChanged(QTableWidgetItem *item);
+
+    void on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+
 private:
     Ui::MainWindow *ui;
-    QWidget *last_focused_widget;
 };
 #endif // MAINWINDOW_H

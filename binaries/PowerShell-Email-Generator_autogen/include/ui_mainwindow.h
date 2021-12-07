@@ -104,8 +104,16 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QLabel *label_9;
     QDateEdit *todayEdit;
+    QSpacerItem *horizontalSpacer_2;
+    QLabel *label_20;
+    QDateEdit *lastUpdateDateEdit;
+    QSpacerItem *horizontalSpacer_5;
+    QLabel *label_18;
+    QSpinBox *incompleteSpinBox;
     QLabel *label_13;
     QSpinBox *lateTasksSpinBox;
+    QLabel *label_19;
+    QSpinBox *completeSpinBox;
     QSpacerItem *horizontalSpacer;
     QVBoxLayout *verticalLayout_6;
     QTableWidget *tableWidget;
@@ -122,7 +130,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1161, 798);
+        MainWindow->resize(1240, 826);
         actionOpen = new QAction(MainWindow);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(MainWindow);
@@ -470,8 +478,40 @@ public:
         todayEdit = new QDateEdit(centralwidget);
         todayEdit->setObjectName(QString::fromUtf8("todayEdit"));
         todayEdit->setReadOnly(true);
+        todayEdit->setDateTime(QDateTime(QDate(2000, 1, 1), QTime(0, 0, 0)));
+        todayEdit->setCurrentSection(QDateTimeEdit::DaySection);
 
         horizontalLayout_7->addWidget(todayEdit);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_7->addItem(horizontalSpacer_2);
+
+        label_20 = new QLabel(centralwidget);
+        label_20->setObjectName(QString::fromUtf8("label_20"));
+
+        horizontalLayout_7->addWidget(label_20);
+
+        lastUpdateDateEdit = new QDateEdit(centralwidget);
+        lastUpdateDateEdit->setObjectName(QString::fromUtf8("lastUpdateDateEdit"));
+        lastUpdateDateEdit->setReadOnly(true);
+
+        horizontalLayout_7->addWidget(lastUpdateDateEdit);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_7->addItem(horizontalSpacer_5);
+
+        label_18 = new QLabel(centralwidget);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+
+        horizontalLayout_7->addWidget(label_18);
+
+        incompleteSpinBox = new QSpinBox(centralwidget);
+        incompleteSpinBox->setObjectName(QString::fromUtf8("incompleteSpinBox"));
+        incompleteSpinBox->setReadOnly(true);
+
+        horizontalLayout_7->addWidget(incompleteSpinBox);
 
         label_13 = new QLabel(centralwidget);
         label_13->setObjectName(QString::fromUtf8("label_13"));
@@ -483,6 +523,17 @@ public:
         lateTasksSpinBox->setReadOnly(true);
 
         horizontalLayout_7->addWidget(lateTasksSpinBox);
+
+        label_19 = new QLabel(centralwidget);
+        label_19->setObjectName(QString::fromUtf8("label_19"));
+
+        horizontalLayout_7->addWidget(label_19);
+
+        completeSpinBox = new QSpinBox(centralwidget);
+        completeSpinBox->setObjectName(QString::fromUtf8("completeSpinBox"));
+        completeSpinBox->setReadOnly(true);
+
+        horizontalLayout_7->addWidget(completeSpinBox);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -497,8 +548,8 @@ public:
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         tableWidget = new QTableWidget(centralwidget);
-        if (tableWidget->columnCount() < 8)
-            tableWidget->setColumnCount(8);
+        if (tableWidget->columnCount() < 9)
+            tableWidget->setColumnCount(9);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -515,9 +566,12 @@ public:
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(8, __qtablewidgetitem8);
         if (tableWidget->rowCount() < 1)
             tableWidget->setRowCount(1);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
+        tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         tableWidget->setAlternatingRowColors(true);
         tableWidget->setSortingEnabled(true);
         tableWidget->setWordWrap(true);
@@ -554,7 +608,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1161, 23));
+        menubar->setGeometry(QRect(0, 0, 1240, 23));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuAbout = new QMenu(menubar);
@@ -617,8 +671,13 @@ public:
         dueDateButton->setText(QCoreApplication::translate("MainWindow", "Due Date", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Body", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "Task Data Table", nullptr));
-        label_9->setText(QCoreApplication::translate("MainWindow", "Today's Date", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "Today", nullptr));
+        todayEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dddd,  MMMM dd, yyyy", nullptr));
+        label_20->setText(QCoreApplication::translate("MainWindow", "Last Update", nullptr));
+        lastUpdateDateEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dddd, MMMM, dd, yyyy", nullptr));
+        label_18->setText(QCoreApplication::translate("MainWindow", "Incomplete Tasks", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "Late Tasks", nullptr));
+        label_19->setText(QCoreApplication::translate("MainWindow", "Complete Tasks", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Task", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -634,7 +693,9 @@ public:
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Status", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
-        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Update Day(s)", nullptr));
+        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Days", nullptr));
+        QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Included Attachments", nullptr));
         generateButton->setText(QCoreApplication::translate("MainWindow", "Generate PowerShell Script", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Generate and Run PowerShell Script", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
