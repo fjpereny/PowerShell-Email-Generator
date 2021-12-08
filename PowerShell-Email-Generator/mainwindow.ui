@@ -140,7 +140,7 @@
          <number>7</number>
         </property>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QCheckBox" name="folder1CB">
           <property name="text">
            <string>Folder 1</string>
           </property>
@@ -164,7 +164,7 @@
          <number>7</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_12">
+         <widget class="QCheckBox" name="folder2CB">
           <property name="text">
            <string>Folder 2</string>
           </property>
@@ -188,7 +188,7 @@
          <number>7</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_14">
+         <widget class="QCheckBox" name="folder3CB">
           <property name="text">
            <string>Folder 3</string>
           </property>
@@ -212,7 +212,7 @@
          <number>7</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_15">
+         <widget class="QCheckBox" name="folder4CB">
           <property name="text">
            <string>Folder 4</string>
           </property>
@@ -236,7 +236,7 @@
          <number>7</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_16">
+         <widget class="QCheckBox" name="folder5CB">
           <property name="text">
            <string>Folder 5</string>
           </property>
@@ -701,49 +701,85 @@
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="separator"/>
     <addaction name="actionGenerate_PowerShell_Script"/>
+    <addaction name="actionGenerate_Run_PowerShell_Script"/>
     <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>Help</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionClear_Table_Data"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu_Edit"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>&amp;Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Save</string>
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionClose">
    <property name="text">
-    <string>Close</string>
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>&amp;About</string>
    </property>
   </action>
   <action name="actionGenerate_PowerShell_Script">
    <property name="text">
-    <string>Generate PowerShell Script</string>
+    <string>&amp;Generate PowerShell Script</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Run_PowerShell_Script">
+   <property name="text">
+    <string>Generate and &amp;Run PowerShell Script</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionClear_Table_Data">
+   <property name="text">
+    <string>Clear Table Data</string>
    </property>
   </action>
  </widget>

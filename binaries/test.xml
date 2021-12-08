@@ -1,21 +1,42 @@
 <root>
     <save_date>2021.12.08</save_date>
     <project>
-        <project_name>sdfasfdaf</project_name>
-        <project_gate>fasdfas</project_gate>
-        <project_gate_due>sadfasdf</project_gate_due>
+        <project_name>DS45-75kW</project_name>
+        <project_gate>LR</project_gate>
+        <project_gate_due>4-1-21</project_gate_due>
         <incomplete_tasks>1</incomplete_tasks>
         <late_tasks>1</late_tasks>
         <complete_tasks>1</complete_tasks>
     </project>
     <email>
-        <subject>sadfas</subject>
-        <body></body>
-        <folder_path_1>asdfasf</folder_path_1>
-        <folder_path_2>asdfsadf</folder_path_2>
-        <folder_path_3>asdfas</folder_path_3>
-        <folder_path_4>asdfsa</folder_path_4>
-        <folder_path_5>asdfsadf</folder_path_5>
+        <subject>[PROJECT NAME] [STATUS] [TASK] [TASK DUE]</subject>
+        <body>dfasdffa
+
+sdfasfd
+asdfdsafas
+asdfsdaf
+dfasdffa
+
+sdfasfd
+asdfdsafas
+asdfsdaf
+dfasdffa
+
+sdfasfd
+asdfdsafas
+asdfsdaf
+dfasdffa
+</body>
+        <folder_path_1>/home/frank/GitHub/PowerShell-Email-Generator/binaries/Testing</folder_path_1>
+        <folder_path_2>/home/frank/GitHub/PowerShell-Email-Generator/binaries/CMakeFiles</folder_path_2>
+        <folder_path_3>/home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen</folder_path_3>
+        <folder_path_4>/home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/EWIEGA46WW</folder_path_4>
+        <folder_path_5>/home/frank/GitHub/PowerShell-Email-Generator/binaries/Testing/Temporary</folder_path_5>
+        <folder_1_enabled>unchecked</folder_1_enabled>
+        <folder_2_enabled>checked</folder_2_enabled>
+        <folder_3_enabled>unchecked</folder_3_enabled>
+        <folder_4_enabled>checked</folder_4_enabled>
+        <folder_5_enabled>unchecked</folder_5_enabled>
     </email>
     <task_table>
         <row_0>
@@ -25,7 +46,7 @@
             <manager>asdfsda</manager>
             <manager_email>asdfsdaf</manager_email>
             <due_date>2020.11.7</due_date>
-            <status>Complete</status>
+            <status>Incomplete</status>
             <days>
                 <mon>checked</mon>
                 <tue>unchecked</tue>
@@ -50,14 +71,14 @@
             <manager>asdfdsa</manager>
             <manager_email>asdfsda</manager_email>
             <due_date>2020.12.8</due_date>
-            <status>Incomplete</status>
+            <status>Complete</status>
             <days>
                 <mon>unchecked</mon>
-                <tue>checked</tue>
+                <tue>unchecked</tue>
                 <wed>unchecked</wed>
-                <thu>unchecked</thu>
+                <thu>checked</thu>
                 <fri>checked</fri>
-                <sat>unchecked</sat>
+                <sat>checked</sat>
                 <sun>checked</sun>
             </days>
             <attachments>

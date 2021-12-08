@@ -65,7 +65,6 @@ void MainWindow::add_date_edit(int cell_row, int cell_col)
     dateLayout->addWidget(dateEdit);
     dateEdit->setObjectName("dateEdit");
     dateEdit->setDisplayFormat("MMM-dd-yyyy");
-//    dateEdit->setButtonSymbols(QDateEdit::NoButtons);
     dateEdit->setDate(QDate::currentDate());
 }
 
@@ -212,6 +211,43 @@ void MainWindow::on_actionOpen_triggered()
         ui->attachment4PathLineEdit->setText(element_2->GetText());
         if ( (element_2 = element_1->FirstChildElement("folder_path_5")) )
         ui->attachment5PathLineEdit->setText(element_2->GetText());
+        if ( (element_2 = element_1->FirstChildElement("folder_1_enabled")) )
+        {
+            if (QString(element_2->GetText()) == QString("checked"))
+                ui->folder1CB->setChecked(true);
+            else
+                ui->folder1CB->setChecked(false);
+        }
+        if ( (element_2 = element_1->FirstChildElement("folder_2_enabled")) )
+        {
+            if (QString(element_2->GetText()) == QString("checked"))
+                ui->folder2CB->setChecked(true);
+            else
+                ui->folder2CB->setChecked(false);
+        }
+        if ( (element_2 = element_1->FirstChildElement("folder_3_enabled")) )
+        {
+            if (QString(element_2->GetText()) == QString("checked"))
+                ui->folder3CB->setChecked(true);
+            else
+                ui->folder3CB->setChecked(false);
+        }
+        if ( (element_2 = element_1->FirstChildElement("folder_4_enabled")) )
+        {
+            if (QString(element_2->GetText()) == QString("checked"))
+                ui->folder4CB->setChecked(true);
+            else
+                ui->folder4CB->setChecked(false);
+        }
+        if ( (element_2 = element_1->FirstChildElement("folder_5_enabled")) )
+        {
+            if (QString(element_2->GetText()) == QString("checked"))
+                ui->folder5CB->setChecked(true);
+            else
+                ui->folder5CB->setChecked(false);
+        }
+
+
 
     tinyxml2::XMLElement *table_element = root->FirstChildElement("task_table");
     tinyxml2::XMLElement *row_element;
@@ -458,6 +494,38 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
         email->InsertEndChild(folder_3);
         email->InsertEndChild(folder_4);
         email->InsertEndChild(folder_5);
+
+        tinyxml2::XMLElement *folder_1_enabled = xmlDoc->NewElement("folder_1_enabled");
+        tinyxml2::XMLElement *folder_2_enabled = xmlDoc->NewElement("folder_2_enabled");
+        tinyxml2::XMLElement *folder_3_enabled = xmlDoc->NewElement("folder_3_enabled");
+        tinyxml2::XMLElement *folder_4_enabled = xmlDoc->NewElement("folder_4_enabled");
+        tinyxml2::XMLElement *folder_5_enabled = xmlDoc->NewElement("folder_5_enabled");
+        if(ui->folder1CB->isChecked())
+            folder_1_enabled->SetText("checked");
+        else
+            folder_1_enabled->SetText("unchecked");
+        if(ui->folder2CB->isChecked())
+            folder_2_enabled->SetText("checked");
+        else
+            folder_2_enabled->SetText("unchecked");
+        if(ui->folder3CB->isChecked())
+            folder_3_enabled->SetText("checked");
+        else
+            folder_3_enabled->SetText("unchecked");
+        if(ui->folder4CB->isChecked())
+            folder_4_enabled->SetText("checked");
+        else
+            folder_4_enabled->SetText("unchecked");
+        if(ui->folder5CB->isChecked())
+            folder_5_enabled->SetText("checked");
+        else
+            folder_5_enabled->SetText("unchecked");
+        email->InsertEndChild(folder_1_enabled);
+        email->InsertEndChild(folder_2_enabled);
+        email->InsertEndChild(folder_3_enabled);
+        email->InsertEndChild(folder_4_enabled);
+        email->InsertEndChild(folder_5_enabled);
+
 
 
     tinyxml2::XMLElement *task_table = xmlDoc->NewElement("task_table");
@@ -800,7 +868,24 @@ void MainWindow::on_generateButton_clicked()
 
 QString MainWindow::create_script_header()
 {
-    QString header = "";
+    QString header = "# Made By PowerShell Email Generator\n";
+    header += "# --------------------------------------------------------------------------------------\n";
+    header += "# PowerShell Email Generator\n";
+    header += "# Copyright (C) 2021 Frank Pereny\n";
+    header += "# https://github.com/fjpereny/PowerShell-Email-Generator\n";
+    header += "#\n";
+    header += "# This program is free software: you can redistribute it and/or modify it under the\n";
+    header += "# terms of the GNU General Public License as published by the Free Software\n";
+    header += "# Foundation, either version 3 of the License, or (at your option) any later version.\n";
+    header += "\n";
+    header += "# This program is distributed in the hope that it will be useful, but WITHOUT ANY\n";
+    header += "# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS\n";
+    header += "# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n";
+    header += "# --------------------------------------------------------------------------------------\n";
+    header += "#\n";
+    header += "# Program: " + ui->projectNameLineEdit->text() + "\n";
+    header += "# Created: " + ui->todayEdit->date().toString("dddd, MMMM dd, yyyy") + "\n";
+    header += "\n";
     header += "Add-Type -assembly \"Microsoft.Office.Interop.Outlook\"\n";
     header += "$Outlook = New-Object -comobject Outlook.Application\n";
     return header;
@@ -855,10 +940,26 @@ void MainWindow::generate_script()
     QString project_gate = ui->gateLineEdit->text();
     QString gate_due = ui->gateDueLineEdit->text();
 
-    QString attachments = ui->attachmentPathLineEdit->text();
-    if (attachments.back() != '/' && attachments.back() != '\\')
-        attachments += '/';
-    attachments = QDir::toNativeSeparators(attachments);
+    QString attachments1 = ui->attachmentPathLineEdit->text();
+    if (attachments1.back() != '/' && attachments1.back() != '\\')
+        attachments1 += '/';
+    attachments1 = QDir::toNativeSeparators(attachments1);
+    QString attachments2 = ui->attachment2PathLineEdit->text();
+    if (attachments2.back() != '/' && attachments2.back() != '\\')
+        attachments2 += '/';
+    attachments2 = QDir::toNativeSeparators(attachments2);
+    QString attachments3 = ui->attachment3PathLineEdit->text();
+    if (attachments3.back() != '/' && attachments3.back() != '\\')
+        attachments3 += '/';
+    attachments3 = QDir::toNativeSeparators(attachments3);
+    QString attachments4 = ui->attachment4PathLineEdit->text();
+    if (attachments4.back() != '/' && attachments4.back() != '\\')
+        attachments4 += '/';
+    attachments4 = QDir::toNativeSeparators(attachments4);
+    QString attachments5 = ui->attachment5PathLineEdit->text();
+    if (attachments5.back() != '/' && attachments5.back() != '\\')
+        attachments5 += '/';
+    attachments5 = QDir::toNativeSeparators(attachments5);
 
     QString subject;
     QString body;
@@ -871,44 +972,44 @@ void MainWindow::generate_script()
     QString task_due;
 
     script += create_script_header();
-    for (int row=0; row<ui->tableWidget->rowCount(); ++row)
-    {
-        subject = ui->emailSubject->text();
-        body = ui->emailBody->toPlainText();
+//    for (int row=0; row<ui->tableWidget->rowCount(); ++row)
+//    {
+//        subject = ui->emailSubject->text();
+//        body = ui->emailBody->toPlainText();
 
-        task = ui->tableWidget->item(row, 0)->text();
-        owner = ui->tableWidget->item(row, 1)->text();
-        owner_email = ui->tableWidget->item(row, 2)->text();
-        manager = ui->tableWidget->item(row, 3)->text();
-        manager_email = ui->tableWidget->item(row, 4)->text();
-        status = ui->tableWidget->item(row, 5)->text();
-        task_due = ui->tableWidget->item(row, 6)->text();
+//        task = ui->tableWidget->item(row, 0)->text();
+//        owner = ui->tableWidget->item(row, 1)->text();
+//        owner_email = ui->tableWidget->item(row, 2)->text();
+//        manager = ui->tableWidget->item(row, 3)->text();
+//        manager_email = ui->tableWidget->item(row, 4)->text();
+//        status = ui->tableWidget->item(row, 5)->text();
+//        task_due = ui->tableWidget->item(row, 6)->text();
 
-        subject.replace("[PROJECT NAME]", project_name);
-        subject.replace("[PROJECT GATE]", project_gate);
-        subject.replace("[GATE DUE]", gate_due);
-        subject.replace("[TASK]", task);
-        subject.replace("[OWNER]", owner);
-        subject.replace("[OWNER EMAIL]", owner_email);
-        subject.replace("[MANAGER]", manager);
-        subject.replace("[MANAGER EMAIL]", manager_email);
-        subject.replace("[STATUS]", status);
-        subject.replace("[TASK DUE]", task_due);
+//        subject.replace("[PROJECT NAME]", project_name);
+//        subject.replace("[PROJECT GATE]", project_gate);
+//        subject.replace("[GATE DUE]", gate_due);
+//        subject.replace("[TASK]", task);
+//        subject.replace("[OWNER]", owner);
+//        subject.replace("[OWNER EMAIL]", owner_email);
+//        subject.replace("[MANAGER]", manager);
+//        subject.replace("[MANAGER EMAIL]", manager_email);
+//        subject.replace("[STATUS]", status);
+//        subject.replace("[TASK DUE]", task_due);
 
-        body.replace("[PROJECT NAME]", project_name);
-        body.replace("[PROJECT GATE]", project_gate);
-        body.replace("[GATE DUE]", gate_due);
-        body.replace("[TASK]", task);
-        body.replace("[OWNER]", owner);
-        body.replace("[OWNER EMAIL]", owner_email);
-        body.replace("[MANAGER]", manager);
-        body.replace("[MANAGER EMAIL]", manager_email);
-        body.replace("[STATUS]", status);
-        body.replace("[TASK DUE]", task_due);        
+//        body.replace("[PROJECT NAME]", project_name);
+//        body.replace("[PROJECT GATE]", project_gate);
+//        body.replace("[GATE DUE]", gate_due);
+//        body.replace("[TASK]", task);
+//        body.replace("[OWNER]", owner);
+//        body.replace("[OWNER EMAIL]", owner_email);
+//        body.replace("[MANAGER]", manager);
+//        body.replace("[MANAGER EMAIL]", manager_email);
+//        body.replace("[STATUS]", status);
+//        body.replace("[TASK DUE]", task_due);
 
-        script += createMailScript(owner_email, manager_email, "", subject, body, attachments);
+//        script += createMailScript(owner_email, manager_email, "", subject, body, "");
 
-    }
+//    }
 
     QFile file(save_file_path);
     file.open(QFile::WriteOnly);
@@ -1070,13 +1171,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::on_selectFolderButton1_clicked()
-{
-    QString folder_path = QFileDialog::getExistingDirectory(this,
-                                                          "Select Attachments Folder",
-                                                          QDir::toNativeSeparators(QDir::currentPath()));
-    ui->attachmentPathLineEdit->setText(folder_path);
-}
 
 void MainWindow::on_actionAbout_triggered()
 {
@@ -1164,5 +1258,63 @@ void MainWindow::on_tableWidget_currentCellChanged(int currentRow, int currentCo
     status_changed();
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
+}
+
+
+
+void MainWindow::on_selectFolderButton1_clicked()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this,
+                                                          "Select Attachments Folder",
+                                                          QDir::toNativeSeparators(QDir::currentPath()));
+    ui->attachmentPathLineEdit->setText(folder_path);
+}
+
+
+void MainWindow::on_selectFolderButton2_clicked()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this,
+                                                          "Select Attachments Folder",
+                                                          QDir::toNativeSeparators(QDir::currentPath()));
+    ui->attachment2PathLineEdit->setText(folder_path);
+}
+
+
+void MainWindow::on_selectFolderButton3_clicked()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this,
+                                                          "Select Attachments Folder",
+                                                          QDir::toNativeSeparators(QDir::currentPath()));
+    ui->attachment3PathLineEdit->setText(folder_path);
+}
+
+
+void MainWindow::on_selectFolderButton4_clicked()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this,
+                                                          "Select Attachments Folder",
+                                                          QDir::toNativeSeparators(QDir::currentPath()));
+    ui->attachment4PathLineEdit->setText(folder_path);
+}
+
+
+void MainWindow::on_selectFolderButton5_clicked()
+{
+    QString folder_path = QFileDialog::getExistingDirectory(this,
+                                                          "Select Attachments Folder",
+                                                          QDir::toNativeSeparators(QDir::currentPath()));
+    ui->attachment5PathLineEdit->setText(folder_path);
+}
+
+
+void MainWindow::on_actionClear_Table_Data_triggered()
+{
+    ui->tableWidget->selectionModel()->clear();
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setRowCount(1);
+    add_date_edit(0, 5);
+    add_status_combo(0, 6);
+    add_day_checkBox(0, 7);
+    add_folder_checkBox(0, 8);
 }
 

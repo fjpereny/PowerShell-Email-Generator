@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -39,6 +40,8 @@ public:
     QAction *actionClose;
     QAction *actionAbout;
     QAction *actionGenerate_PowerShell_Script;
+    QAction *actionGenerate_Run_PowerShell_Script;
+    QAction *actionClear_Table_Data;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout_13;
     QVBoxLayout *verticalLayout_5;
@@ -59,23 +62,23 @@ public:
     QLineEdit *emailSubject;
     QLabel *label_17;
     QHBoxLayout *horizontalLayout_8;
-    QLabel *label;
+    QCheckBox *folder1CB;
     QLineEdit *attachmentPathLineEdit;
     QPushButton *selectFolderButton1;
     QHBoxLayout *horizontalLayout_9;
-    QLabel *label_12;
+    QCheckBox *folder2CB;
     QLineEdit *attachment2PathLineEdit;
     QPushButton *selectFolderButton2;
     QHBoxLayout *horizontalLayout_10;
-    QLabel *label_14;
+    QCheckBox *folder3CB;
     QLineEdit *attachment3PathLineEdit;
     QPushButton *selectFolderButton3;
     QHBoxLayout *horizontalLayout_11;
-    QLabel *label_15;
+    QCheckBox *folder4CB;
     QLineEdit *attachment4PathLineEdit;
     QPushButton *selectFolderButton4;
     QHBoxLayout *horizontalLayout_12;
-    QLabel *label_16;
+    QCheckBox *folder5CB;
     QLineEdit *attachment5PathLineEdit;
     QPushButton *selectFolderButton5;
     QHBoxLayout *horizontalLayout_6;
@@ -124,6 +127,7 @@ public:
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuAbout;
+    QMenu *menu_Edit;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -141,6 +145,10 @@ public:
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
         actionGenerate_PowerShell_Script = new QAction(MainWindow);
         actionGenerate_PowerShell_Script->setObjectName(QString::fromUtf8("actionGenerate_PowerShell_Script"));
+        actionGenerate_Run_PowerShell_Script = new QAction(MainWindow);
+        actionGenerate_Run_PowerShell_Script->setObjectName(QString::fromUtf8("actionGenerate_Run_PowerShell_Script"));
+        actionClear_Table_Data = new QAction(MainWindow);
+        actionClear_Table_Data->setObjectName(QString::fromUtf8("actionClear_Table_Data"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout_13 = new QHBoxLayout(centralwidget);
@@ -244,10 +252,10 @@ public:
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setSpacing(7);
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        label = new QLabel(centralwidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        folder1CB = new QCheckBox(centralwidget);
+        folder1CB->setObjectName(QString::fromUtf8("folder1CB"));
 
-        horizontalLayout_8->addWidget(label);
+        horizontalLayout_8->addWidget(folder1CB);
 
         attachmentPathLineEdit = new QLineEdit(centralwidget);
         attachmentPathLineEdit->setObjectName(QString::fromUtf8("attachmentPathLineEdit"));
@@ -265,10 +273,10 @@ public:
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(7);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
-        label_12 = new QLabel(centralwidget);
-        label_12->setObjectName(QString::fromUtf8("label_12"));
+        folder2CB = new QCheckBox(centralwidget);
+        folder2CB->setObjectName(QString::fromUtf8("folder2CB"));
 
-        horizontalLayout_9->addWidget(label_12);
+        horizontalLayout_9->addWidget(folder2CB);
 
         attachment2PathLineEdit = new QLineEdit(centralwidget);
         attachment2PathLineEdit->setObjectName(QString::fromUtf8("attachment2PathLineEdit"));
@@ -286,10 +294,10 @@ public:
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(7);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        label_14 = new QLabel(centralwidget);
-        label_14->setObjectName(QString::fromUtf8("label_14"));
+        folder3CB = new QCheckBox(centralwidget);
+        folder3CB->setObjectName(QString::fromUtf8("folder3CB"));
 
-        horizontalLayout_10->addWidget(label_14);
+        horizontalLayout_10->addWidget(folder3CB);
 
         attachment3PathLineEdit = new QLineEdit(centralwidget);
         attachment3PathLineEdit->setObjectName(QString::fromUtf8("attachment3PathLineEdit"));
@@ -307,10 +315,10 @@ public:
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setSpacing(7);
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
-        label_15 = new QLabel(centralwidget);
-        label_15->setObjectName(QString::fromUtf8("label_15"));
+        folder4CB = new QCheckBox(centralwidget);
+        folder4CB->setObjectName(QString::fromUtf8("folder4CB"));
 
-        horizontalLayout_11->addWidget(label_15);
+        horizontalLayout_11->addWidget(folder4CB);
 
         attachment4PathLineEdit = new QLineEdit(centralwidget);
         attachment4PathLineEdit->setObjectName(QString::fromUtf8("attachment4PathLineEdit"));
@@ -328,10 +336,10 @@ public:
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setSpacing(7);
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
-        label_16 = new QLabel(centralwidget);
-        label_16->setObjectName(QString::fromUtf8("label_16"));
+        folder5CB = new QCheckBox(centralwidget);
+        folder5CB->setObjectName(QString::fromUtf8("folder5CB"));
 
-        horizontalLayout_12->addWidget(label_16);
+        horizontalLayout_12->addWidget(folder5CB);
 
         attachment5PathLineEdit = new QLineEdit(centralwidget);
         attachment5PathLineEdit->setObjectName(QString::fromUtf8("attachment5PathLineEdit"));
@@ -611,22 +619,28 @@ public:
         menubar->setGeometry(QRect(0, 0, 1240, 23));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuFile->setTearOffEnabled(false);
         menuAbout = new QMenu(menubar);
         menuAbout->setObjectName(QString::fromUtf8("menuAbout"));
+        menu_Edit = new QMenu(menubar);
+        menu_Edit->setObjectName(QString::fromUtf8("menu_Edit"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
         menubar->addAction(menuFile->menuAction());
+        menubar->addAction(menu_Edit->menuAction());
         menubar->addAction(menuAbout->menuAction());
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave);
         menuFile->addSeparator();
         menuFile->addAction(actionGenerate_PowerShell_Script);
+        menuFile->addAction(actionGenerate_Run_PowerShell_Script);
         menuFile->addSeparator();
         menuFile->addAction(actionClose);
         menuAbout->addAction(actionAbout);
+        menu_Edit->addAction(actionClear_Table_Data);
 
         retranslateUi(MainWindow);
 
@@ -636,11 +650,28 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "PowerShell Email Generator", nullptr));
-        actionOpen->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
-        actionSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
-        actionClose->setText(QCoreApplication::translate("MainWindow", "Close", nullptr));
-        actionAbout->setText(QCoreApplication::translate("MainWindow", "About", nullptr));
-        actionGenerate_PowerShell_Script->setText(QCoreApplication::translate("MainWindow", "Generate PowerShell Script", nullptr));
+        actionOpen->setText(QCoreApplication::translate("MainWindow", "&Open", nullptr));
+#if QT_CONFIG(shortcut)
+        actionOpen->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+O", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionSave->setText(QCoreApplication::translate("MainWindow", "&Save", nullptr));
+#if QT_CONFIG(shortcut)
+        actionSave->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionClose->setText(QCoreApplication::translate("MainWindow", "&Quit", nullptr));
+#if QT_CONFIG(shortcut)
+        actionClose->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Q", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionAbout->setText(QCoreApplication::translate("MainWindow", "&About", nullptr));
+        actionGenerate_PowerShell_Script->setText(QCoreApplication::translate("MainWindow", "&Generate PowerShell Script", nullptr));
+#if QT_CONFIG(shortcut)
+        actionGenerate_PowerShell_Script->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+G", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionGenerate_Run_PowerShell_Script->setText(QCoreApplication::translate("MainWindow", "Generate and &Run PowerShell Script", nullptr));
+#if QT_CONFIG(shortcut)
+        actionGenerate_Run_PowerShell_Script->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+R", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionClear_Table_Data->setText(QCoreApplication::translate("MainWindow", "Clear Table Data", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Project Information", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Project Name:", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Project Gate:", nullptr));
@@ -648,15 +679,15 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "Email Setup", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Subject", nullptr));
         label_17->setText(QCoreApplication::translate("MainWindow", "Email Attachment Folders", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Folder 1", nullptr));
+        folder1CB->setText(QCoreApplication::translate("MainWindow", "Folder 1", nullptr));
         selectFolderButton1->setText(QCoreApplication::translate("MainWindow", "Select Folder", nullptr));
-        label_12->setText(QCoreApplication::translate("MainWindow", "Folder 2", nullptr));
+        folder2CB->setText(QCoreApplication::translate("MainWindow", "Folder 2", nullptr));
         selectFolderButton2->setText(QCoreApplication::translate("MainWindow", "Select Folder", nullptr));
-        label_14->setText(QCoreApplication::translate("MainWindow", "Folder 3", nullptr));
+        folder3CB->setText(QCoreApplication::translate("MainWindow", "Folder 3", nullptr));
         selectFolderButton3->setText(QCoreApplication::translate("MainWindow", "Select Folder", nullptr));
-        label_15->setText(QCoreApplication::translate("MainWindow", "Folder 4", nullptr));
+        folder4CB->setText(QCoreApplication::translate("MainWindow", "Folder 4", nullptr));
         selectFolderButton4->setText(QCoreApplication::translate("MainWindow", "Select Folder", nullptr));
-        label_16->setText(QCoreApplication::translate("MainWindow", "Folder 5", nullptr));
+        folder5CB->setText(QCoreApplication::translate("MainWindow", "Folder 5", nullptr));
         selectFolderButton5->setText(QCoreApplication::translate("MainWindow", "Select Folder", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Text Variables", nullptr));
         projectNameButton->setText(QCoreApplication::translate("MainWindow", "Project Name", nullptr));
@@ -698,8 +729,9 @@ public:
         ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Included Attachments", nullptr));
         generateButton->setText(QCoreApplication::translate("MainWindow", "Generate PowerShell Script", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Generate and Run PowerShell Script", nullptr));
-        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
-        menuAbout->setTitle(QCoreApplication::translate("MainWindow", "Help", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("MainWindow", "&File", nullptr));
+        menuAbout->setTitle(QCoreApplication::translate("MainWindow", "&Help", nullptr));
+        menu_Edit->setTitle(QCoreApplication::translate("MainWindow", "&Edit", nullptr));
     } // retranslateUi
 
 };

@@ -94,7 +94,7 @@ public:
 
     void retranslateUi(QWidget *AboutWindow)
     {
-        AboutWindow->setWindowTitle(QCoreApplication::translate("AboutWindow", "Form", nullptr));
+        AboutWindow->setWindowTitle(QCoreApplication::translate("AboutWindow", "About PowerShell Email Generator", nullptr));
         label->setText(QCoreApplication::translate("AboutWindow", "PowerShell Email Generator", nullptr));
         label_2->setText(QCoreApplication::translate("AboutWindow", "Copyright \302\251 2021 <a href=\"mailto:fjpereny@gmail.com\">Frank Pereny</a>", nullptr));
         label_4->setText(QCoreApplication::translate("AboutWindow", "<a href=\"https://github.com/fjpereny/PowerShell-Email-Generator\">https://github.com/fjpereny/PowerShell-Email-Generator</a>", nullptr));

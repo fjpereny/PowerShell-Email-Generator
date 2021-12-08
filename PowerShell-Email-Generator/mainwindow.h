@@ -65,6 +65,16 @@ private slots:
 
     void on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
+    void on_selectFolderButton2_clicked();
+
+    void on_selectFolderButton3_clicked();
+
+    void on_selectFolderButton4_clicked();
+
+    void on_selectFolderButton5_clicked();
+
+    void on_actionClear_Table_Data_triggered();
+
 private:
     Ui::MainWindow *ui;
 
