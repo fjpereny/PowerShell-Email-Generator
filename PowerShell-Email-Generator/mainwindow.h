@@ -44,36 +44,42 @@ private slots:
     void on_generateButton_clicked();
 
     QString create_script_header();
-    QString createMailScript(QString to = "",
-                          QString cc = "",
-                          QString bcc = "",
-                          QString subject = "",
-                          QString body = "",
-                          QString attachments = "");
+    QString createMailScript(int row = 0,
+                             QString to = "",
+                             QString cc = "",
+                             QString bcc = "",
+                             QString subject = "",
+                             QString body = "",
+                             QString attachments_1 = "",
+                             QString attachments_2 = "",
+                             QString attachments_3 = "",
+                             QString attachments_4 = "",
+                             QString attachments_5 = "");
 
-    void generate_script();
+    QString generate_script();
 
     void keyPressEvent(QKeyEvent *event);
 
-    void on_selectFolderButton1_clicked();
+
     void on_actionAbout_triggered();
 
     void status_changed();
     void set_date_color();
 
     void on_tableWidget_itemChanged(QTableWidgetItem *item);
-
     void on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
+    void on_selectFolderButton1_clicked();
     void on_selectFolderButton2_clicked();
-
     void on_selectFolderButton3_clicked();
-
     void on_selectFolderButton4_clicked();
-
     void on_selectFolderButton5_clicked();
 
     void on_actionClear_Table_Data_triggered();
+
+    void on_runButton_clicked();
+
+    void on_actionClear_All_Data_triggered();
 
 private:
     Ui::MainWindow *ui;

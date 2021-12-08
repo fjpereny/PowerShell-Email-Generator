@@ -29,7 +29,7 @@
 			{
 				"command" : 3,
 				"file" : 1,
-				"line" : 33,
+				"line" : 35,
 				"parent" : 0
 			},
 			{
@@ -53,7 +53,7 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 55,
+				"line" : 57,
 				"parent" : 0
 			},
 			{
@@ -152,7 +152,8 @@
 				1,
 				2,
 				5,
-				7
+				7,
+				14
 			]
 		}
 	],
@@ -229,7 +230,8 @@
 				1,
 				2,
 				5,
-				7
+				7,
+				14
 			]
 		},
 		{
@@ -239,8 +241,8 @@
 				3,
 				6,
 				8,
-				10,
-				11
+				11,
+				12
 			]
 		},
 		{
@@ -249,14 +251,16 @@
 			[
 				4,
 				9,
-				12
+				10,
+				13
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				13
+				15,
+				16
 			]
 		}
 	],
@@ -319,6 +323,11 @@
 			"sourceGroupIndex" : 2
 		},
 		{
+			"backtrace" : 4,
+			"path" : "resources.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "/home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/include/ui_aboutwindow.h",
@@ -338,8 +347,21 @@
 		},
 		{
 			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "/home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/EWIEGA46WW/qrc_resources.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "/home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/timestamp.rule",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/frank/GitHub/PowerShell-Email-Generator/binaries/PowerShell-Email-Generator_autogen/EWIEGA46WW/qrc_resources.cpp.rule",
 			"sourceGroupIndex" : 3
 		}
 	],

@@ -5,11 +5,11 @@ PowerShell-Email-Generator_autogen/timestamp: \
   /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/main.cpp \
   /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/mainwindow.cpp \
   /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/mainwindow.h \
+  /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/resources.qrc \
   /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/tinyxml2.cpp \
   /home/frank/GitHub/PowerShell-Email-Generator/PowerShell-Email-Generator/tinyxml2.h \
   CMakeFiles/3.21.1/CMakeCXXCompiler.cmake \
   CMakeFiles/3.21.1/CMakeSystem.cmake \
-  CMakeFiles/FindThreads/CheckForPthreads.cxx \
   PowerShell-Email-Generator_autogen/moc_predefs.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qabstractitemmodel.h \
   /home/frank/Qt/6.2.1/gcc_64/include/QtCore/qalgorithms.h \
@@ -205,78 +205,23 @@ PowerShell-Email-Generator_autogen/timestamp: \
   /home/frank/Qt/6.2.1/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-relwithdebinfo.cmake \
   /home/frank/Qt/6.2.1/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
   /home/frank/Qt/6.2.1/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeCXXCompiler.cmake.in \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeCXXInformation.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeDetermineCXXCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeFindDependencyMacro.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeGenericSystem.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeNinjaFindMake.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeParseArguments.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeSystem.cmake.in \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeTestCXXCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CheckCXXCompilerFlag.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CheckCXXSourceCompiles.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CheckForPthreads.c \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CheckIncludeFile.cxx.in \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CheckIncludeFileCXX.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/CheckLibraryExists.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/GNU.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/FeatureSummary.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/FindOpenGL.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake \
@@ -286,8 +231,6 @@ PowerShell-Email-Generator_autogen/timestamp: \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/FindVulkan.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Internal/CheckCompilerFlag.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake \
-  /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Platform/Linux-Determine-CXX.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Platform/Linux-GNU-CXX.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Platform/Linux-GNU.cmake \
   /home/frank/Qt/Tools/CMake/share/cmake-3.21/Modules/Platform/Linux.cmake \

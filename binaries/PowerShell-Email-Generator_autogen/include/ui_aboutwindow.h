@@ -10,6 +10,7 @@
 #define UI_ABOUTWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialogButtonBox>
@@ -24,6 +25,8 @@ class Ui_AboutWindow
 {
 public:
     QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_5;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QLabel *label;
@@ -37,8 +40,20 @@ public:
         if (AboutWindow->objectName().isEmpty())
             AboutWindow->setObjectName(QString::fromUtf8("AboutWindow"));
         AboutWindow->resize(530, 353);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/img/icons/icon-512.png"), QSize(), QIcon::Normal, QIcon::Off);
+        AboutWindow->setWindowIcon(icon);
         verticalLayout_2 = new QVBoxLayout(AboutWindow);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_5 = new QLabel(AboutWindow);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setPixmap(QPixmap(QString::fromUtf8(":/img/icons/icon-128.png")));
+        label_5->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_5);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout = new QVBoxLayout();
@@ -77,7 +92,10 @@ public:
         horizontalLayout->addLayout(verticalLayout);
 
 
-        verticalLayout_2->addLayout(horizontalLayout);
+        horizontalLayout_2->addLayout(horizontalLayout);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
 
         buttonBox = new QDialogButtonBox(AboutWindow);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
@@ -95,6 +113,7 @@ public:
     void retranslateUi(QWidget *AboutWindow)
     {
         AboutWindow->setWindowTitle(QCoreApplication::translate("AboutWindow", "About PowerShell Email Generator", nullptr));
+        label_5->setText(QString());
         label->setText(QCoreApplication::translate("AboutWindow", "PowerShell Email Generator", nullptr));
         label_2->setText(QCoreApplication::translate("AboutWindow", "Copyright \302\251 2021 <a href=\"mailto:fjpereny@gmail.com\">Frank Pereny</a>", nullptr));
         label_4->setText(QCoreApplication::translate("AboutWindow", "<a href=\"https://github.com/fjpereny/PowerShell-Email-Generator\">https://github.com/fjpereny/PowerShell-Email-Generator</a>", nullptr));

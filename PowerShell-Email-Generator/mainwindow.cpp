@@ -15,6 +15,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDateEdit>
+#include <QProcess>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -42,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
     *calculate_on = true;
 }
@@ -197,6 +199,8 @@ void MainWindow::on_actionOpen_triggered()
         ui->gateDueLineEdit->setText(element_2->GetText());
 
     if ( (element_1 = root->FirstChildElement("email")) )
+        if ( (element_2 = element_1->FirstChildElement("bcc")) )
+        ui->bccEdit->setText(element_2->GetText());
         if ( (element_2 = element_1->FirstChildElement("subject")) )
         ui->emailSubject->setText(element_2->GetText());
         if ( (element_2 = element_1->FirstChildElement("body")) )
@@ -252,10 +256,6 @@ void MainWindow::on_actionOpen_triggered()
     tinyxml2::XMLElement *table_element = root->FirstChildElement("task_table");
     tinyxml2::XMLElement *row_element;
     int table_row = 0;
-    QTableWidgetItem *cell_0_0 = new QTableWidgetItem();
-    ui->tableWidget->setItem(0, 0, cell_0_0);
-    ui->tableWidget->setCurrentCell(0, 0);
-    ui->tableWidget->setCurrentItem(ui->tableWidget->item(0, 0));
     for (row_element = table_element->FirstChildElement();
          row_element != NULL;
          row_element = row_element->NextSiblingElement())
@@ -317,6 +317,15 @@ void MainWindow::on_actionOpen_triggered()
         QWidget *dateFrame = ui->tableWidget->cellWidget(table_row, 5);
         QDateEdit *dateEdit = dateFrame->findChild<QDateEdit*>("dateEdit");
         dateEdit->setDate(QDate(year, month, day));
+
+
+        QString status = row_element->FirstChildElement("status")->GetText();
+        QWidget *statusFrame = ui->tableWidget->cellWidget(table_row, 6);
+        QComboBox *statusCombo = statusFrame->findChild<QComboBox*>("statusCombo");
+        if (status == "Complete")
+            statusCombo->setCurrentText("Complete");
+        else
+            statusCombo->setCurrentText("Incomplete");
 
 
         tinyxml2::XMLElement *days = row_element->FirstChildElement("days");
@@ -472,10 +481,13 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
 
     tinyxml2::XMLElement *email = xmlDoc->NewElement("email");
     root->InsertEndChild(email);
+        tinyxml2::XMLElement *bcc = xmlDoc->NewElement("bcc");
         tinyxml2::XMLElement *subject = xmlDoc->NewElement("subject");
         tinyxml2::XMLElement *body = xmlDoc->NewElement("body");
+        email->InsertEndChild(bcc);
         email->InsertEndChild(subject);
         email->InsertEndChild(body);
+        bcc->SetText(ui->bccEdit->text().toStdString().c_str());
         subject->SetText(ui->emailSubject->text().toStdString().c_str());
         body->SetText(ui->emailBody->toPlainText().toStdString().c_str());
 
@@ -892,14 +904,20 @@ QString MainWindow::create_script_header()
 }
 
 
-QString MainWindow::createMailScript(QString to,
+QString MainWindow::createMailScript(int row,
+                                     QString to,
                                      QString cc,
                                      QString bcc,
                                      QString subject,
                                      QString body,
-                                     QString attachments)
+                                     QString attachments_1,
+                                     QString attachments_2,
+                                     QString attachments_3,
+                                     QString attachments_4,
+                                     QString attachments_5)
 {
     QString script = "";
+    script += "# ------------ EMAIL BEGIN -----------------\n";
     script += "$Mail = $Outlook.CreateItem(0)\n";
 
     script += "$Mail.To = \"" + to + "\"\n";
@@ -909,19 +927,62 @@ QString MainWindow::createMailScript(QString to,
     script += "$Mail.Subject = \"" + subject + "\"\n";
     script += "$Mail.Body = \"" + body + "\"\n";
 
-    script += "$files = Get-ChildItem -Path \"" + attachments + "\" -File\n";
-    script += "foreach($file in $files)\n";
-    script += "{\n";
-    script += "$Mail.Attachments.Add(\"" + attachments + "\" + $file)\n";
-    script += "}\n";
+    QWidget *attachmentFrame = ui->tableWidget->cellWidget(row, 8);
+    QCheckBox *folder1CB = attachmentFrame->findChild<QCheckBox*>("folder_1");
+    QCheckBox *folder2CB = attachmentFrame->findChild<QCheckBox*>("folder_2");
+    QCheckBox *folder3CB = attachmentFrame->findChild<QCheckBox*>("folder_3");
+    QCheckBox *folder4CB = attachmentFrame->findChild<QCheckBox*>("folder_4");
+    QCheckBox *folder5CB = attachmentFrame->findChild<QCheckBox*>("folder_5");
+
+    if (attachments_1 != "" && ui->folder1CB->isChecked() && folder1CB->isChecked())
+    {
+        script += "$files = Get-ChildItem -Path \"" + attachments_1 + "\" -File\n";
+        script += "foreach($file in $files)\n";
+        script += "{\n";
+        script += "$Mail.Attachments.Add(\"" + attachments_1 + "\" + $file)\n";
+        script += "}\n";
+    }
+    if (attachments_2 != "" && ui->folder2CB->isChecked() && folder2CB->isChecked())
+    {
+        script += "$files = Get-ChildItem -Path \"" + attachments_2 + "\" -File\n";
+        script += "foreach($file in $files)\n";
+        script += "{\n";
+        script += "$Mail.Attachments.Add(\"" + attachments_2 + "\" + $file)\n";
+        script += "}\n";
+    }
+    if (attachments_3 != "" && ui->folder3CB->isChecked() && folder3CB->isChecked())
+    {
+        script += "$files = Get-ChildItem -Path \"" + attachments_3 + "\" -File\n";
+        script += "foreach($file in $files)\n";
+        script += "{\n";
+        script += "$Mail.Attachments.Add(\"" + attachments_3 + "\" + $file)\n";
+        script += "}\n";
+    }
+    if (attachments_4 != "" && ui->folder4CB->isChecked() && folder4CB->isChecked())
+    {
+        script += "$files = Get-ChildItem -Path \"" + attachments_4 + "\" -File\n";
+        script += "foreach($file in $files)\n";
+        script += "{\n";
+        script += "$Mail.Attachments.Add(\"" + attachments_4 + "\" + $file)\n";
+        script += "}\n";
+    }
+    if (attachments_5 != "" && ui->folder5CB->isChecked() && folder5CB->isChecked())
+    {
+        script += "$files = Get-ChildItem -Path \"" + attachments_5 + "\" -File\n";
+        script += "foreach($file in $files)\n";
+        script += "{\n";
+        script += "$Mail.Attachments.Add(\"" + attachments_5 + "\" + $file)\n";
+        script += "}\n";
+    }
 
     script += "$Mail.Send()\n";
-    script += "\n";
+    script += "# ------------ EMAIL END --------------------\n";
+    script += "\n\n";
     return script;
 }
 
 
-void MainWindow::generate_script()
+QString MainWindow::generate_script()
 {
     QString script = "";
 
@@ -931,7 +992,7 @@ void MainWindow::generate_script()
                                                           "PowerShell Script (*.ps1)");
 
     if (save_file_path.isEmpty())
-        return;
+        return "";
 
     if (!save_file_path.contains(".ps1"))
         save_file_path += ".ps1";
@@ -941,26 +1002,37 @@ void MainWindow::generate_script()
     QString gate_due = ui->gateDueLineEdit->text();
 
     QString attachments1 = ui->attachmentPathLineEdit->text();
-    if (attachments1.back() != '/' && attachments1.back() != '\\')
+    if (attachments1 == "")
+        std::cout << "Warning: Attachment folder 1 path is blank..." << std::endl;
+    else if (attachments1.back() != '/' && attachments1.back() != '\\')
         attachments1 += '/';
     attachments1 = QDir::toNativeSeparators(attachments1);
     QString attachments2 = ui->attachment2PathLineEdit->text();
-    if (attachments2.back() != '/' && attachments2.back() != '\\')
+    if (attachments2 == "")
+        std::cout << "Warning: Attachment folder 2 path is blank..." << std::endl;
+    else if (attachments2.back() != '/' && attachments2.back() != '\\')
         attachments2 += '/';
     attachments2 = QDir::toNativeSeparators(attachments2);
     QString attachments3 = ui->attachment3PathLineEdit->text();
-    if (attachments3.back() != '/' && attachments3.back() != '\\')
+    if (attachments3 == "")
+        std::cout << "Warning: Attachment folder 3 path is blank..." << std::endl;
+    else if (attachments3.back() != '/' && attachments3.back() != '\\')
         attachments3 += '/';
     attachments3 = QDir::toNativeSeparators(attachments3);
     QString attachments4 = ui->attachment4PathLineEdit->text();
-    if (attachments4.back() != '/' && attachments4.back() != '\\')
+    if (attachments4 == "")
+        std::cout << "Warning: Attachment folder 4 path is blank..." << std::endl;
+    else if (attachments4.back() != '/' && attachments4.back() != '\\')
         attachments4 += '/';
     attachments4 = QDir::toNativeSeparators(attachments4);
     QString attachments5 = ui->attachment5PathLineEdit->text();
-    if (attachments5.back() != '/' && attachments5.back() != '\\')
+    if (attachments5 == "")
+        std::cout << "Warning: Attachment folder 5 path is blank..." << std::endl;
+    else if (attachments5.back() != '/' && attachments5.back() != '\\')
         attachments5 += '/';
     attachments5 = QDir::toNativeSeparators(attachments5);
 
+    QString BCC = ui->bccEdit->text();
     QString subject;
     QString body;
     QString task;
@@ -972,44 +1044,63 @@ void MainWindow::generate_script()
     QString task_due;
 
     script += create_script_header();
-//    for (int row=0; row<ui->tableWidget->rowCount(); ++row)
-//    {
-//        subject = ui->emailSubject->text();
-//        body = ui->emailBody->toPlainText();
+    for (int row=0; row<ui->tableWidget->rowCount(); ++row)
+    {
+        subject = ui->emailSubject->text();
+        body = ui->emailBody->toPlainText();
+        task = ui->tableWidget->item(row, 0)->text();
+        owner = ui->tableWidget->item(row, 1)->text();
+        owner_email = ui->tableWidget->item(row, 2)->text();
+        manager = ui->tableWidget->item(row, 3)->text();
+        manager_email = ui->tableWidget->item(row, 4)->text();
 
-//        task = ui->tableWidget->item(row, 0)->text();
-//        owner = ui->tableWidget->item(row, 1)->text();
-//        owner_email = ui->tableWidget->item(row, 2)->text();
-//        manager = ui->tableWidget->item(row, 3)->text();
-//        manager_email = ui->tableWidget->item(row, 4)->text();
-//        status = ui->tableWidget->item(row, 5)->text();
-//        task_due = ui->tableWidget->item(row, 6)->text();
+        QWidget *dateFrame = ui->tableWidget->cellWidget(row, 5);
+        QDateEdit *dateEdit = dateFrame->findChild<QDateEdit*>("dateEdit");
+        task_due = dateEdit->text();
 
-//        subject.replace("[PROJECT NAME]", project_name);
-//        subject.replace("[PROJECT GATE]", project_gate);
-//        subject.replace("[GATE DUE]", gate_due);
-//        subject.replace("[TASK]", task);
-//        subject.replace("[OWNER]", owner);
-//        subject.replace("[OWNER EMAIL]", owner_email);
-//        subject.replace("[MANAGER]", manager);
-//        subject.replace("[MANAGER EMAIL]", manager_email);
-//        subject.replace("[STATUS]", status);
-//        subject.replace("[TASK DUE]", task_due);
+        QWidget *statusFrame = ui->tableWidget->cellWidget(row, 6);
+        QComboBox *statusCombo = statusFrame->findChild<QComboBox*>("statusCombo");
+        if (statusCombo->currentText() == "Complete")
+            status = "Complete";
+        else if (dateEdit->date() < ui->todayEdit->date())
+            status = "Late";
+        else
+            status = "Incomplete";
 
-//        body.replace("[PROJECT NAME]", project_name);
-//        body.replace("[PROJECT GATE]", project_gate);
-//        body.replace("[GATE DUE]", gate_due);
-//        body.replace("[TASK]", task);
-//        body.replace("[OWNER]", owner);
-//        body.replace("[OWNER EMAIL]", owner_email);
-//        body.replace("[MANAGER]", manager);
-//        body.replace("[MANAGER EMAIL]", manager_email);
-//        body.replace("[STATUS]", status);
-//        body.replace("[TASK DUE]", task_due);
+        subject.replace("[PROJECT NAME]", project_name);
+        subject.replace("[PROJECT GATE]", project_gate);
+        subject.replace("[GATE DUE]", gate_due);
+        subject.replace("[TASK]", task);
+        subject.replace("[OWNER]", owner);
+        subject.replace("[OWNER EMAIL]", owner_email);
+        subject.replace("[MANAGER]", manager);
+        subject.replace("[MANAGER EMAIL]", manager_email);
+        subject.replace("[STATUS]", status);
+        subject.replace("[TASK DUE]", task_due);
 
-//        script += createMailScript(owner_email, manager_email, "", subject, body, "");
+        body.replace("[PROJECT NAME]", project_name);
+        body.replace("[PROJECT GATE]", project_gate);
+        body.replace("[GATE DUE]", gate_due);
+        body.replace("[TASK]", task);
+        body.replace("[OWNER]", owner);
+        body.replace("[OWNER EMAIL]", owner_email);
+        body.replace("[MANAGER]", manager);
+        body.replace("[MANAGER EMAIL]", manager_email);
+        body.replace("[STATUS]", status);
+        body.replace("[TASK DUE]", task_due);
 
-//    }
+        script += createMailScript(row,
+                                   owner_email,
+                                   manager_email,
+                                   BCC,
+                                   subject, body,
+                                   attachments1,
+                                   attachments2,
+                                   attachments3,
+                                   attachments4,
+                                   attachments5);
+
+    }
 
     QFile file(save_file_path);
     file.open(QFile::WriteOnly);
@@ -1019,6 +1110,8 @@ void MainWindow::generate_script()
         stream << script;
         file.close();
     }
+
+    return save_file_path;
 }
 
 
@@ -1089,21 +1182,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             model = ui->tableWidget->selectionModel();
             QModelIndexList index_list = model->selectedIndexes();
 
-            int prev_row = index_list.at(0).row();
-            for (QModelIndex index : index_list)
+            if (index_list.size() > 0)
             {
-                if (index.row() == prev_row)
-                    text += '\t';
-                else
-                    text += '\n';
-
-                if (ui->tableWidget->itemFromIndex(index))
-                    text += ui->tableWidget->itemFromIndex(index)->text();
-                else
-                    text += "";
-                prev_row = index.row();
+                text = ui->tableWidget->itemFromIndex(index_list[0])->text();
             }
-            text = text.trimmed();
 
             QClipboard *cb = QApplication::clipboard();
             cb->setText(text);
@@ -1111,62 +1193,37 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
         if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_V))
         {
-            QClipboard *cb = QApplication::clipboard();            
-            QList<QString> stringList = cb->text().split('\t');
+            QClipboard *cb = QApplication::clipboard();
+            QString text = cb->text();
 
             QItemSelectionModel *model = ui->tableWidget->selectionModel();
             QModelIndex first_index = model->selectedIndexes().front();
-            int row_start = first_index.row();
-            int col_start = first_index.column();
-
-            for (QString text : stringList)
+            QTableWidgetItem *item;
+            if (!(item = ui->tableWidget->itemFromIndex(first_index)))
             {
-                if (text.contains('\n'))
-                    ++row_start;
-
-                if (row_start >= ui->tableWidget->rowCount())
-                    break;
-                else
-                    ui->tableWidget->itemAt(row_start, col_start)->setText(text);
+                item = new QTableWidgetItem();
+                ui->tableWidget->setItem(first_index.row(), first_index.column(), item);
             }
-
-
-//            QTableWidgetItem *item;
-//            if ((item = ui->tableWidget->currentItem()))
-//            {
-//                item->setText(cb->text());
-//            }
-
-//            else
-//            {
-//                QModelIndex index;
-//                index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
-//                item = new QTableWidgetItem;
-//                ui->tableWidget->setItem(index.row(), index.column(), item);
-//                item->setText(cb->text());
-//            }
+            item->setText(text);
         }
 
         if (event->keyCombination() == QKeyCombination(Qt::CTRL, Qt::Key_X))
         {
-            QString text;
+            // Copy
+            QString text = "";
+            QItemSelectionModel *model;
+            model = ui->tableWidget->selectionModel();
+            QModelIndexList index_list = model->selectedIndexes();
 
-            QModelIndex index;
-            index = ui->tableWidget->selectionModel()->selectedIndexes()[0];
-
-            QTableWidgetItem *item;
-            if ((item = ui->tableWidget->item(index.row(), index.column())))
+            if (index_list.size() > 0)
             {
-                text = item->text();
-                item->setText("");
-            }
-            else
-            {
-                text = "";
+                text = ui->tableWidget->itemFromIndex(index_list[0])->text();
             }
 
             QClipboard *cb = QApplication::clipboard();
             cb->setText(text);
+
+            ui->tableWidget->itemFromIndex(index_list[0])->setText("");
         }
     }
 }
@@ -1316,5 +1373,27 @@ void MainWindow::on_actionClear_Table_Data_triggered()
     add_status_combo(0, 6);
     add_day_checkBox(0, 7);
     add_folder_checkBox(0, 8);
+}
+
+void MainWindow::on_runButton_clicked()
+{
+    generate_script();
+}
+
+
+void MainWindow::on_actionClear_All_Data_triggered()
+{
+    on_actionClear_Table_Data_triggered();
+    ui->projectNameLineEdit->clear();
+    ui->gateLineEdit->clear();
+    ui->gateDueLineEdit->clear();
+    ui->bccEdit->clear();
+    ui->emailSubject->clear();
+    ui->emailBody->clear();
+    ui->attachmentPathLineEdit->clear();
+    ui->attachment2PathLineEdit->clear();
+    ui->attachment3PathLineEdit->clear();
+    ui->attachment4PathLineEdit->clear();
+    ui->attachment5PathLineEdit->clear();
 }
 

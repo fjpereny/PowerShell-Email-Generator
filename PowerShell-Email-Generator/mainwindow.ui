@@ -13,31 +13,35 @@
   <property name="windowTitle">
    <string>PowerShell Email Generator</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/img/icons/icon-512.png</normaloff>:/img/icons/icon-512.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_13">
+   <layout class="QHBoxLayout" name="horizontalLayout_15">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
-      <item>
-       <widget class="QLabel" name="label_11">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Project Information</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
+     <layout class="QVBoxLayout" name="verticalLayout_9">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
+         <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Project Information</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <property name="spacing">
-           <number>11</number>
+           <number>12</number>
           </property>
           <item>
            <widget class="QLabel" name="label_3">
@@ -100,6 +104,27 @@
           </property>
          </widget>
         </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <property name="spacing">
+           <number>19</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>BCC Email:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="bccEdit"/>
+          </item>
+         </layout>
+        </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <property name="spacing">
@@ -117,140 +142,140 @@
           </item>
          </layout>
         </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_17">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Email Attachment Folders</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_8">
-        <property name="spacing">
-         <number>7</number>
-        </property>
         <item>
-         <widget class="QCheckBox" name="folder1CB">
+         <widget class="QLabel" name="label_17">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>Folder 1</string>
+           <string>Email Attachment Folders</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="attachmentPathLineEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="selectFolderButton1">
-          <property name="text">
-           <string>Select Folder</string>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <property name="spacing">
+           <number>7</number>
           </property>
-         </widget>
+          <item>
+           <widget class="QCheckBox" name="folder1CB">
+            <property name="text">
+             <string>Folder 1</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="attachmentPathLineEdit"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="selectFolderButton1">
+            <property name="text">
+             <string>Select Folder</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
-        <property name="spacing">
-         <number>7</number>
-        </property>
         <item>
-         <widget class="QCheckBox" name="folder2CB">
-          <property name="text">
-           <string>Folder 2</string>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <property name="spacing">
+           <number>7</number>
           </property>
-         </widget>
+          <item>
+           <widget class="QCheckBox" name="folder2CB">
+            <property name="text">
+             <string>Folder 2</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="attachment2PathLineEdit"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="selectFolderButton2">
+            <property name="text">
+             <string>Select Folder</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QLineEdit" name="attachment2PathLineEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="selectFolderButton2">
-          <property name="text">
-           <string>Select Folder</string>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <property name="spacing">
+           <number>7</number>
           </property>
-         </widget>
+          <item>
+           <widget class="QCheckBox" name="folder3CB">
+            <property name="text">
+             <string>Folder 3</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="attachment3PathLineEdit"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="selectFolderButton3">
+            <property name="text">
+             <string>Select Folder</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <property name="spacing">
-         <number>7</number>
-        </property>
         <item>
-         <widget class="QCheckBox" name="folder3CB">
-          <property name="text">
-           <string>Folder 3</string>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <property name="spacing">
+           <number>6</number>
           </property>
-         </widget>
+          <item>
+           <widget class="QCheckBox" name="folder4CB">
+            <property name="text">
+             <string>Folder 4</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="attachment4PathLineEdit"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="selectFolderButton4">
+            <property name="text">
+             <string>Select Folder</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QLineEdit" name="attachment3PathLineEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="selectFolderButton3">
-          <property name="text">
-           <string>Select Folder</string>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <property name="spacing">
+           <number>7</number>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_11">
-        <property name="spacing">
-         <number>7</number>
-        </property>
-        <item>
-         <widget class="QCheckBox" name="folder4CB">
-          <property name="text">
-           <string>Folder 4</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="attachment4PathLineEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="selectFolderButton4">
-          <property name="text">
-           <string>Select Folder</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <property name="spacing">
-         <number>7</number>
-        </property>
-        <item>
-         <widget class="QCheckBox" name="folder5CB">
-          <property name="text">
-           <string>Folder 5</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="attachment5PathLineEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="selectFolderButton5">
-          <property name="text">
-           <string>Select Folder</string>
-          </property>
-         </widget>
+          <item>
+           <widget class="QCheckBox" name="folder5CB">
+            <property name="text">
+             <string>Folder 5</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="attachment5PathLineEdit"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="selectFolderButton5">
+            <property name="text">
+             <string>Select Folder</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -475,10 +500,10 @@
              </datetime>
             </property>
             <property name="currentSection">
-             <enum>QDateTimeEdit::MonthSection</enum>
+             <enum>QDateTimeEdit::DaySection</enum>
             </property>
             <property name="displayFormat">
-             <string>MMM-dd-yyyy</string>
+             <string>dddd, MMM dd, yyyy</string>
             </property>
            </widget>
           </item>
@@ -508,7 +533,7 @@
              <bool>true</bool>
             </property>
             <property name="displayFormat">
-             <string>MMM-DD-yyyy</string>
+             <string>MMM DD, yyyy</string>
             </property>
            </widget>
           </item>
@@ -677,9 +702,13 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="runButton">
             <property name="text">
              <string>Generate and Run PowerShell Script</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>:/img/icons/icon.png</normaloff>:/img/icons/icon.png</iconset>
             </property>
            </widget>
           </item>
@@ -726,6 +755,8 @@
      <string>&amp;Edit</string>
     </property>
     <addaction name="actionClear_Table_Data"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_All_Data"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Edit"/>
@@ -782,7 +813,14 @@
     <string>Clear Table Data</string>
    </property>
   </action>
+  <action name="actionClear_All_Data">
+   <property name="text">
+    <string>Clear All Data</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

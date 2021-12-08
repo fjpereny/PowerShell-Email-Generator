@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDateEdit>
@@ -42,11 +43,12 @@ public:
     QAction *actionGenerate_PowerShell_Script;
     QAction *actionGenerate_Run_PowerShell_Script;
     QAction *actionClear_Table_Data;
+    QAction *actionClear_All_Data;
     QWidget *centralwidget;
-    QHBoxLayout *horizontalLayout_13;
-    QVBoxLayout *verticalLayout_5;
-    QLabel *label_11;
+    QHBoxLayout *horizontalLayout_15;
+    QVBoxLayout *verticalLayout_9;
     QVBoxLayout *verticalLayout;
+    QLabel *label_11;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_3;
     QLineEdit *projectNameLineEdit;
@@ -57,6 +59,10 @@ public:
     QLabel *label_5;
     QLineEdit *gateDueLineEdit;
     QLabel *label_2;
+    QVBoxLayout *verticalLayout_5;
+    QHBoxLayout *horizontalLayout_14;
+    QLabel *label;
+    QLineEdit *bccEdit;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_8;
     QLineEdit *emailSubject;
@@ -123,7 +129,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *generateButton;
-    QPushButton *pushButton;
+    QPushButton *runButton;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuAbout;
@@ -135,6 +141,9 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1240, 826);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/img/icons/icon-512.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionOpen = new QAction(MainWindow);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(MainWindow);
@@ -149,12 +158,16 @@ public:
         actionGenerate_Run_PowerShell_Script->setObjectName(QString::fromUtf8("actionGenerate_Run_PowerShell_Script"));
         actionClear_Table_Data = new QAction(MainWindow);
         actionClear_Table_Data->setObjectName(QString::fromUtf8("actionClear_Table_Data"));
+        actionClear_All_Data = new QAction(MainWindow);
+        actionClear_All_Data->setObjectName(QString::fromUtf8("actionClear_All_Data"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        horizontalLayout_13 = new QHBoxLayout(centralwidget);
-        horizontalLayout_13->setObjectName(QString::fromUtf8("horizontalLayout_13"));
-        verticalLayout_5 = new QVBoxLayout();
-        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        horizontalLayout_15 = new QHBoxLayout(centralwidget);
+        horizontalLayout_15->setObjectName(QString::fromUtf8("horizontalLayout_15"));
+        verticalLayout_9 = new QVBoxLayout();
+        verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label_11 = new QLabel(centralwidget);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         QFont font;
@@ -162,12 +175,10 @@ public:
         label_11->setFont(font);
         label_11->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(label_11);
+        verticalLayout->addWidget(label_11);
 
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(11);
+        horizontalLayout_2->setSpacing(12);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -221,6 +232,27 @@ public:
 
         verticalLayout->addWidget(label_2);
 
+
+        verticalLayout_9->addLayout(verticalLayout);
+
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        horizontalLayout_14 = new QHBoxLayout();
+        horizontalLayout_14->setSpacing(19);
+        horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        horizontalLayout_14->addWidget(label);
+
+        bccEdit = new QLineEdit(centralwidget);
+        bccEdit->setObjectName(QString::fromUtf8("bccEdit"));
+
+        horizontalLayout_14->addWidget(bccEdit);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_14);
+
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(39);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -235,10 +267,7 @@ public:
         horizontalLayout_5->addWidget(emailSubject);
 
 
-        verticalLayout->addLayout(horizontalLayout_5);
-
-
-        verticalLayout_5->addLayout(verticalLayout);
+        verticalLayout_5->addLayout(horizontalLayout_5);
 
         label_17 = new QLabel(centralwidget);
         label_17->setObjectName(QString::fromUtf8("label_17"));
@@ -313,7 +342,7 @@ public:
         verticalLayout_5->addLayout(horizontalLayout_10);
 
         horizontalLayout_11 = new QHBoxLayout();
-        horizontalLayout_11->setSpacing(7);
+        horizontalLayout_11->setSpacing(6);
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         folder4CB = new QCheckBox(centralwidget);
         folder4CB->setObjectName(QString::fromUtf8("folder4CB"));
@@ -353,6 +382,9 @@ public:
 
 
         verticalLayout_5->addLayout(horizontalLayout_12);
+
+
+        verticalLayout_9->addLayout(verticalLayout_5);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
@@ -456,10 +488,10 @@ public:
         horizontalLayout_6->addLayout(verticalLayout_4);
 
 
-        verticalLayout_5->addLayout(horizontalLayout_6);
+        verticalLayout_9->addLayout(horizontalLayout_6);
 
 
-        horizontalLayout_13->addLayout(verticalLayout_5);
+        horizontalLayout_15->addLayout(verticalLayout_9);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
@@ -487,7 +519,7 @@ public:
         todayEdit->setObjectName(QString::fromUtf8("todayEdit"));
         todayEdit->setReadOnly(true);
         todayEdit->setDateTime(QDateTime(QDate(2000, 1, 1), QTime(0, 0, 0)));
-        todayEdit->setCurrentSection(QDateTimeEdit::MonthSection);
+        todayEdit->setCurrentSection(QDateTimeEdit::DaySection);
 
         horizontalLayout_7->addWidget(todayEdit);
 
@@ -599,10 +631,13 @@ public:
 
         horizontalLayout->addWidget(generateButton);
 
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        runButton = new QPushButton(centralwidget);
+        runButton->setObjectName(QString::fromUtf8("runButton"));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/img/icons/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        runButton->setIcon(icon1);
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(runButton);
 
 
         verticalLayout_6->addLayout(horizontalLayout);
@@ -611,7 +646,7 @@ public:
         verticalLayout_8->addLayout(verticalLayout_6);
 
 
-        horizontalLayout_13->addLayout(verticalLayout_8);
+        horizontalLayout_15->addLayout(verticalLayout_8);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -641,6 +676,8 @@ public:
         menuFile->addAction(actionClose);
         menuAbout->addAction(actionAbout);
         menu_Edit->addAction(actionClear_Table_Data);
+        menu_Edit->addSeparator();
+        menu_Edit->addAction(actionClear_All_Data);
 
         retranslateUi(MainWindow);
 
@@ -672,11 +709,13 @@ public:
         actionGenerate_Run_PowerShell_Script->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+R", nullptr));
 #endif // QT_CONFIG(shortcut)
         actionClear_Table_Data->setText(QCoreApplication::translate("MainWindow", "Clear Table Data", nullptr));
+        actionClear_All_Data->setText(QCoreApplication::translate("MainWindow", "Clear All Data", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Project Information", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Project Name:", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Project Gate:", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Gate Due Date", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Email Setup", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "BCC Email:", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Subject", nullptr));
         label_17->setText(QCoreApplication::translate("MainWindow", "Email Attachment Folders", nullptr));
         folder1CB->setText(QCoreApplication::translate("MainWindow", "Folder 1", nullptr));
@@ -703,9 +742,9 @@ public:
         label_7->setText(QCoreApplication::translate("MainWindow", "Body", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "Task Data Table", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "Today", nullptr));
-        todayEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "MMM-dd-yyyy", nullptr));
+        todayEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dddd, MMM dd, yyyy", nullptr));
         label_20->setText(QCoreApplication::translate("MainWindow", "Last Update", nullptr));
-        lastUpdateDateEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "MMM-DD-yyyy", nullptr));
+        lastUpdateDateEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "MMM DD, yyyy", nullptr));
         label_18->setText(QCoreApplication::translate("MainWindow", "Incomplete Tasks", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "Late Tasks", nullptr));
         label_19->setText(QCoreApplication::translate("MainWindow", "Complete Tasks", nullptr));
@@ -728,7 +767,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
         ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Included Attachments", nullptr));
         generateButton->setText(QCoreApplication::translate("MainWindow", "Generate PowerShell Script", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Generate and Run PowerShell Script", nullptr));
+        runButton->setText(QCoreApplication::translate("MainWindow", "Generate and Run PowerShell Script", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "&File", nullptr));
         menuAbout->setTitle(QCoreApplication::translate("MainWindow", "&Help", nullptr));
         menu_Edit->setTitle(QCoreApplication::translate("MainWindow", "&Edit", nullptr));

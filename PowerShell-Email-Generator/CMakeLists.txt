@@ -27,6 +27,8 @@ set(PROJECT_SOURCES
         aboutwindow.cpp
         aboutwindow.h
         aboutwindow.ui
+
+        resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
