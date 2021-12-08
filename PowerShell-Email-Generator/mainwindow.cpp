@@ -19,7 +19,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow),
+      calculate_on(new bool)
 {
     ui->setupUi(this);
 
@@ -32,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->todayEdit->setButtonSymbols(QDateEdit::NoButtons);
 
     ui->lastUpdateDateEdit->setDate(QDate::currentDate());
+    ui->lastUpdateDateEdit->setDisplayFormat("MMM-dd-yyyy");
     ui->lastUpdateDateEdit->setButtonSymbols(QDateEdit::NoButtons);
 
     ui->incompleteSpinBox->setButtonSymbols(QSpinBox::NoButtons);
@@ -40,9 +42,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
+
+    *calculate_on = true;
 }
 
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+
+// GUI Table Widget
 void MainWindow::add_date_edit(int cell_row, int cell_col)
 {
     QFrame *dateFrame = new QFrame;
@@ -54,10 +65,9 @@ void MainWindow::add_date_edit(int cell_row, int cell_col)
     dateLayout->addWidget(dateEdit);
     dateEdit->setObjectName("dateEdit");
     dateEdit->setDisplayFormat("MMM-dd-yyyy");
-    dateEdit->setButtonSymbols(QDateEdit::NoButtons);
+//    dateEdit->setButtonSymbols(QDateEdit::NoButtons);
     dateEdit->setDate(QDate::currentDate());
 }
-
 
 void MainWindow::add_status_combo(int cell_row, int cell_col)
 {
@@ -78,7 +88,6 @@ void MainWindow::add_status_combo(int cell_row, int cell_col)
     ui->incompleteSpinBox->setValue(ui->incompleteSpinBox->value() + 1);
 }
 
-
 void MainWindow::add_day_checkBox(int cell_row, int cell_col)
 {
     QFrame *dayCheckFrame = new QFrame;
@@ -89,26 +98,32 @@ void MainWindow::add_day_checkBox(int cell_row, int cell_col)
     QCheckBox *cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Mon");
+    cb->setObjectName("mon");
     cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Tue");
+    cb->setObjectName("tue");
     cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Wed");
+    cb->setObjectName("wed");
     cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Thu");
+    cb->setObjectName("thu");
     cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Fri");
+    cb->setObjectName("fri");
     cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Sat");
+    cb->setObjectName("sat");
     cb = new QCheckBox();
     dayCheckLayout->addWidget(cb);
     cb->setText("Sun");
+    cb->setObjectName("sun");
 }
-
 
 void MainWindow::add_folder_checkBox(int cell_row, int cell_col)
 {
@@ -121,29 +136,29 @@ void MainWindow::add_folder_checkBox(int cell_row, int cell_col)
     cb = new QCheckBox();
     folderCheckLayout->addWidget(cb);
     cb->setText("Folder 1");
+    cb->setObjectName("folder_1");
     cb = new QCheckBox();
     folderCheckLayout->addWidget(cb);
     cb->setText("Folder 2");
+    cb->setObjectName("folder_2");
     cb = new QCheckBox();
     folderCheckLayout->addWidget(cb);
     cb->setText("Folder 3");
+    cb->setObjectName("folder_3");
     cb = new QCheckBox();
     folderCheckLayout->addWidget(cb);
     cb->setText("Folder 4");
+    cb->setObjectName("folder_4");
     cb = new QCheckBox();
     folderCheckLayout->addWidget(cb);
     cb->setText("Folder 5");
+    cb->setObjectName("folder_5");
 }
-
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
 
 void MainWindow::on_actionOpen_triggered()
 {
+    *calculate_on = false;
+
     QString file_path = QFileDialog::getOpenFileName(this,
                                                      "Open File",
                                                      QDir::toNativeSeparators(QDir::currentPath()),
@@ -160,53 +175,188 @@ void MainWindow::on_actionOpen_triggered()
     tinyxml2::XMLNode *root = xmlDoc.FirstChild();
 
     tinyxml2::XMLElement *element_1, *element_2;
-    element_1 = root->FirstChildElement("project");
-        element_2 = element_1->FirstChildElement("project_name");
+    if ( (element_1 = root->FirstChildElement("save_date")) )
+    {
+        QStringList date = QString(element_1->GetText()).split('.');
+        int year = date[0].toInt();
+        int month = date[1].toInt();
+        int day = date[2].toInt();
+        ui->lastUpdateDateEdit->setDate(QDate(year, month, day));
+    }
+    else
+    {
+        ui->lastUpdateDateEdit->setDate(QDate::currentDate());
+    }
+
+
+    if ( (element_1 = root->FirstChildElement("project")) )
+        if ( (element_2 = element_1->FirstChildElement("project_name")) )
         ui->projectNameLineEdit->setText(element_2->GetText());
-        element_2 = element_1->FirstChildElement("project_gate");
+        if ( (element_2 = element_1->FirstChildElement("project_gate")) )
         ui->gateLineEdit->setText(element_2->GetText());
-        element_2 = element_1->FirstChildElement("project_gate_due");
+        if ( (element_2 = element_1->FirstChildElement("project_gate_due")) )
         ui->gateDueLineEdit->setText(element_2->GetText());
-        element_2 = element_1->FirstChildElement("attachment_path");
-        ui->attachmentPathLineEdit->setText(element_2->GetText());
 
-    element_1 = root->FirstChildElement("email");
-        element_2 = element_1->FirstChildElement("subject");
+    if ( (element_1 = root->FirstChildElement("email")) )
+        if ( (element_2 = element_1->FirstChildElement("subject")) )
         ui->emailSubject->setText(element_2->GetText());
-        element_2 = element_1->FirstChildElement("body");
+        if ( (element_2 = element_1->FirstChildElement("body")) )
         ui->emailBody->setPlainText(element_2->GetText());
+        if ( (element_2 = element_1->FirstChildElement("folder_path_1")) )
+        ui->attachmentPathLineEdit->setText(element_2->GetText());
+        if ( (element_2 = element_1->FirstChildElement("folder_path_2")) )
+        ui->attachment2PathLineEdit->setText(element_2->GetText());
+        if ( (element_2 = element_1->FirstChildElement("folder_path_3")) )
+        ui->attachment3PathLineEdit->setText(element_2->GetText());
+        if ( (element_2 = element_1->FirstChildElement("folder_path_4")) )
+        ui->attachment4PathLineEdit->setText(element_2->GetText());
+        if ( (element_2 = element_1->FirstChildElement("folder_path_5")) )
+        ui->attachment5PathLineEdit->setText(element_2->GetText());
 
-    tinyxml2::XMLElement *table_element, *row_element, *col_element;
-    table_element = root->FirstChildElement("task_table");
-
-    int xml_row_count = 0;
-    QString  element_name = "row_" + QString::number(xml_row_count);
-    while (table_element->FirstChildElement(element_name.toStdString().c_str()))
+    tinyxml2::XMLElement *table_element = root->FirstChildElement("task_table");
+    tinyxml2::XMLElement *row_element;
+    int table_row = 0;
+    QTableWidgetItem *cell_0_0 = new QTableWidgetItem();
+    ui->tableWidget->setItem(0, 0, cell_0_0);
+    ui->tableWidget->setCurrentCell(0, 0);
+    ui->tableWidget->setCurrentItem(ui->tableWidget->item(0, 0));
+    for (row_element = table_element->FirstChildElement();
+         row_element != NULL;
+         row_element = row_element->NextSiblingElement())
     {
-        ++xml_row_count;
-        element_name = "row_" + QString::number(xml_row_count);
-    }
-
-    ui->tableWidget->setRowCount(xml_row_count);
-    for (int row=0; row<xml_row_count; ++row)
-    {
-        for (int col=0; col<ui->tableWidget->columnCount(); ++col)
+        int last_index = ui->tableWidget->rowCount() - 1;
+        if (last_index < table_row)
         {
-            QString row_name = "row_" + QString::number(row);
-            QString col_name = "col_" + QString::number(col);
-
-            row_element = table_element->FirstChildElement(row_name.toStdString().c_str());
-            col_element = row_element->FirstChildElement(col_name.toStdString().c_str());
-
-            QTableWidgetItem *item;
-            if (!(item = ui->tableWidget->item(row, col)))
-            {
-                item = new QTableWidgetItem();
-                ui->tableWidget->setItem(row, col, item);
-            }
-            item->setText(col_element->GetText());
+            ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+            add_date_edit(table_row, 5);
+            add_status_combo(table_row, 6);
+            add_day_checkBox(table_row, 7);
+            add_folder_checkBox(table_row, 8);
         }
+
+        QTableWidgetItem *item;
+        QString task = row_element->FirstChildElement("task")->GetText();
+        if (!(item = ui->tableWidget->item(table_row, 0)) )
+        {
+            item = new QTableWidgetItem();
+            ui->tableWidget->setItem(table_row, 0, item);
+        }
+        item->setText(task);
+        ui->tableWidget->item(table_row, 0)->setText(task);
+        QString owner = row_element->FirstChildElement("owner")->GetText();
+        if (!(item = ui->tableWidget->item(table_row, 1)) )
+        {
+            item = new QTableWidgetItem();
+            ui->tableWidget->setItem(table_row, 1, item);
+        }
+        item->setText(owner);
+        QString owner_email = row_element->FirstChildElement("owner_email")->GetText();
+        if (!(item = ui->tableWidget->item(table_row, 2)) )
+        {
+            item = new QTableWidgetItem();
+            ui->tableWidget->setItem(table_row, 2, item);
+        }
+        item->setText(owner_email);
+        QString manager = row_element->FirstChildElement("manager")->GetText();
+        if (!(item = ui->tableWidget->item(table_row, 3)) )
+        {
+            item = new QTableWidgetItem();
+            ui->tableWidget->setItem(table_row, 3, item);
+        }
+        item->setText(manager);
+        QString manager_email = row_element->FirstChildElement("manager_email")->GetText();
+        if (!(item = ui->tableWidget->item(table_row, 4)) )
+        {
+            item = new QTableWidgetItem();
+            ui->tableWidget->setItem(table_row, 4, item);
+        }
+        item->setText(manager_email);
+
+
+        QString date = row_element->FirstChildElement("due_date")->GetText();
+        QStringList date_list = date.split('.');
+        int year = date_list[0].toInt();
+        int month = date_list[1].toInt();
+        int day = date_list[2].toInt();
+        QWidget *dateFrame = ui->tableWidget->cellWidget(table_row, 5);
+        QDateEdit *dateEdit = dateFrame->findChild<QDateEdit*>("dateEdit");
+        dateEdit->setDate(QDate(year, month, day));
+
+
+        tinyxml2::XMLElement *days = row_element->FirstChildElement("days");
+        tinyxml2::XMLElement *mon = days->FirstChildElement("mon");
+        tinyxml2::XMLElement *tue = days->FirstChildElement("tue");
+        tinyxml2::XMLElement *wed = days->FirstChildElement("wed");
+        tinyxml2::XMLElement *thu = days->FirstChildElement("thu");
+        tinyxml2::XMLElement *fri = days->FirstChildElement("fri");
+        tinyxml2::XMLElement *sat = days->FirstChildElement("sat");
+        tinyxml2::XMLElement *sun = days->FirstChildElement("sun");
+        bool mon_checked = (QString(mon->GetText()) == QString("checked"));
+        bool tue_checked = (QString(tue->GetText()) == QString("checked"));
+        bool wed_checked = (QString(wed->GetText()) == QString("checked"));
+        bool thu_checked = (QString(thu->GetText()) == QString("checked"));
+        bool fri_checked = (QString(fri->GetText()) == QString("checked"));
+        bool sat_checked = (QString(sat->GetText()) == QString("checked"));
+        bool sun_checked = (QString(sun->GetText()) == QString("checked"));
+
+        QWidget *dayFrame = ui->tableWidget->cellWidget(table_row, 7);
+        QCheckBox *monCB = dayFrame->findChild<QCheckBox*>("mon");
+        if (mon_checked)
+            monCB->setChecked(true);
+        QCheckBox *tueCB = dayFrame->findChild<QCheckBox*>("tue");
+        if (tue_checked)
+            tueCB->setChecked(true);
+        QCheckBox *wedCB = dayFrame->findChild<QCheckBox*>("wed");
+        if (wed_checked)
+            wedCB->setChecked(true);
+        QCheckBox *thuCB = dayFrame->findChild<QCheckBox*>("thu");
+        if (thu_checked)
+            thuCB->setChecked(true);
+        QCheckBox *friCB = dayFrame->findChild<QCheckBox*>("fri");
+        if (fri_checked)
+            friCB->setChecked(true);
+        QCheckBox *satCB = dayFrame->findChild<QCheckBox*>("sat");
+        if (sat_checked)
+            satCB->setChecked(true);
+        QCheckBox *sunCB = dayFrame->findChild<QCheckBox*>("sun");
+        if (sun_checked)
+            sunCB->setChecked(true);
+
+
+        tinyxml2::XMLElement *attachments = row_element->FirstChildElement("attachments");
+        tinyxml2::XMLElement *folder_1 = attachments->FirstChildElement("folder_1");
+        tinyxml2::XMLElement *folder_2 = attachments->FirstChildElement("folder_2");
+        tinyxml2::XMLElement *folder_3 = attachments->FirstChildElement("folder_3");
+        tinyxml2::XMLElement *folder_4 = attachments->FirstChildElement("folder_4");
+        tinyxml2::XMLElement *folder_5 = attachments->FirstChildElement("folder_5");
+        bool fold_1_checked = (QString(folder_1->GetText()) == QString("checked"));
+        bool fold_2_checked = (QString(folder_2->GetText()) == QString("checked"));
+        bool fold_3_checked = (QString(folder_3->GetText()) == QString("checked"));
+        bool fold_4_checked = (QString(folder_4->GetText()) == QString("checked"));
+        bool fold_5_checked = (QString(folder_5->GetText()) == QString("checked"));
+
+        QWidget *attachmentFrame = ui->tableWidget->cellWidget(table_row, 8);
+        QCheckBox *fold_1_CB = attachmentFrame->findChild<QCheckBox*>("folder_1");
+        if (fold_1_checked)
+            fold_1_CB->setChecked(true);
+        QCheckBox *fold_2_CB = attachmentFrame->findChild<QCheckBox*>("folder_2");
+        if (fold_2_checked)
+            fold_2_CB->setChecked(true);
+        QCheckBox *fold_3_CB = attachmentFrame->findChild<QCheckBox*>("folder_3");
+        if (fold_3_checked)
+            fold_3_CB->setChecked(true);
+        QCheckBox *fold_4_CB = attachmentFrame->findChild<QCheckBox*>("folder_4");
+        if (fold_4_checked)
+            fold_4_CB->setChecked(true);
+        QCheckBox *fold_5_CB = attachmentFrame->findChild<QCheckBox*>("folder_5");
+        if (fold_5_checked)
+            fold_5_CB->setChecked(true);
+
+        ++table_row;
     }
+
+    ui->projectNameLineEdit->setFocus();
+    *calculate_on = true;
 }
 
 bool MainWindow::on_actionSave_triggered()
@@ -251,8 +401,9 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
 
     tinyxml2::XMLElement *save_date = xmlDoc->NewElement("save_date");
     root->InsertEndChild(save_date);
-        QString date = QDate::currentDate().toString();
-        save_date->SetText(date.toStdString().c_str());
+        QDate current_date = QDate::currentDate();
+        QString current_date_s = current_date.toString("yyyy.MM.dd");
+        save_date->SetText(current_date_s.toStdString().c_str());
 
 
     tinyxml2::XMLElement *project = xmlDoc->NewElement("project");
@@ -260,35 +411,54 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
         tinyxml2::XMLElement *project_name = xmlDoc->NewElement("project_name");
         tinyxml2::XMLElement *project_gate = xmlDoc->NewElement("project_gate");
         tinyxml2::XMLElement *project_gate_due = xmlDoc->NewElement("project_gate_due");
-        tinyxml2::XMLElement *attachment_path = xmlDoc->NewElement("attachment_path");
+        tinyxml2::XMLElement *incomplete_tasks = xmlDoc->NewElement("incomplete_tasks");
+        tinyxml2::XMLElement *late_tasks = xmlDoc->NewElement("late_tasks");
+        tinyxml2::XMLElement *complete_tasks = xmlDoc->NewElement("complete_tasks");
         project_name->SetText(ui->projectNameLineEdit->text().toStdString().c_str());
         project_gate->SetText(ui->gateLineEdit->text().toStdString().c_str());
         project_gate_due->SetText(ui->gateDueLineEdit->text().toStdString().c_str());
-        attachment_path->SetText(ui->attachmentPathLineEdit->text().toStdString().c_str());
+        qlonglong last_update_qint = ui->lastUpdateDateEdit->date().toJulianDay();
+        QString last_update_str = QString::number(last_update_qint);
+        QString temp_string;
+        temp_string = QString::number(ui->incompleteSpinBox->value());
+        incomplete_tasks->SetText(temp_string.toStdString().c_str());
+        temp_string = QString::number(ui->lateTasksSpinBox->value());
+        late_tasks->SetText(temp_string.toStdString().c_str());
+        temp_string = QString::number(ui->completeSpinBox->value());
+        complete_tasks->SetText(temp_string.toStdString().c_str());
         project->InsertEndChild(project_name);
         project->InsertEndChild(project_gate);
         project->InsertEndChild(project_gate_due);
-        project->InsertEndChild(attachment_path);
+        project->InsertEndChild(incomplete_tasks);
+        project->InsertEndChild(late_tasks);
+        project->InsertEndChild(complete_tasks);
+
 
     tinyxml2::XMLElement *email = xmlDoc->NewElement("email");
     root->InsertEndChild(email);
-        tinyxml2::XMLElement *to = xmlDoc->NewElement("to");
-        tinyxml2::XMLElement *cc = xmlDoc->NewElement("cc");
-        tinyxml2::XMLElement *bcc = xmlDoc->NewElement("bcc");
         tinyxml2::XMLElement *subject = xmlDoc->NewElement("subject");
         tinyxml2::XMLElement *body = xmlDoc->NewElement("body");
-        tinyxml2::XMLElement *attachments = xmlDoc->NewElement("attachments");
-        email->InsertEndChild(to);
-        email->InsertEndChild(cc);
-        email->InsertEndChild(bcc);
         email->InsertEndChild(subject);
         email->InsertEndChild(body);
-        email->InsertEndChild(attachments);
-        // to code
-        // cc code
-        // bcc code
         subject->SetText(ui->emailSubject->text().toStdString().c_str());
         body->SetText(ui->emailBody->toPlainText().toStdString().c_str());
+
+        tinyxml2::XMLElement *folder_1 = xmlDoc->NewElement("folder_path_1");
+        tinyxml2::XMLElement *folder_2 = xmlDoc->NewElement("folder_path_2");
+        tinyxml2::XMLElement *folder_3 = xmlDoc->NewElement("folder_path_3");
+        tinyxml2::XMLElement *folder_4 = xmlDoc->NewElement("folder_path_4");
+        tinyxml2::XMLElement *folder_5 = xmlDoc->NewElement("folder_path_5");
+        folder_1->SetText(ui->attachmentPathLineEdit->text().toStdString().c_str());
+        folder_2->SetText(ui->attachment2PathLineEdit->text().toStdString().c_str());
+        folder_3->SetText(ui->attachment3PathLineEdit->text().toStdString().c_str());
+        folder_4->SetText(ui->attachment4PathLineEdit->text().toStdString().c_str());
+        folder_5->SetText(ui->attachment5PathLineEdit->text().toStdString().c_str());
+        email->InsertEndChild(folder_1);
+        email->InsertEndChild(folder_2);
+        email->InsertEndChild(folder_3);
+        email->InsertEndChild(folder_4);
+        email->InsertEndChild(folder_5);
+
 
     tinyxml2::XMLElement *task_table = xmlDoc->NewElement("task_table");
     root->InsertEndChild(task_table);
@@ -298,13 +468,77 @@ tinyxml2::XMLDocument* MainWindow::create_XML()
             tinyxml2::XMLElement *new_row = xmlDoc->NewElement(row_name.toStdString().c_str());
             task_table->InsertEndChild(new_row);
 
+            QStringList col_names = {"task", "owner", "owner_email",
+                                       "manager", "manager_email",
+                                       "due_date", "status", "days", "attachments"};
             for (int col=0; col<ui->tableWidget->columnCount(); ++col)
             {
-                QString col_name = "col_" + QString::number(col);
+                QString col_name = col_names.at(col);
                 tinyxml2::XMLElement *new_col = xmlDoc->NewElement(col_name.toStdString().c_str());
                 new_row->InsertEndChild(new_col);
 
-                if (ui->tableWidget->item(row, col))
+                if (col == 5)
+                {
+                    QWidget *frameWidget = ui->tableWidget->cellWidget(row, col);
+                    QDateEdit *dateEdit = frameWidget->findChild<QDateEdit*>("dateEdit");
+                    QString year = QString::number(dateEdit->date().year());
+                    QString month = QString::number(dateEdit->date().month());
+                    QString day = QString::number(dateEdit->date().day());
+                    QString date = year + "." + month + "." + day;
+                    new_col->SetText(date.toStdString().c_str());
+                }
+
+                else if (col == 6)
+                {
+                    QWidget *frameWidget = ui->tableWidget->cellWidget(row, col);
+                    QComboBox *statusCombo = frameWidget->findChild<QComboBox*>("statusCombo");
+                    new_col->SetText(statusCombo->currentText().toStdString().c_str());
+                }
+
+                else if (col == 7)
+                {
+                    QWidget *frameWidget = ui->tableWidget->cellWidget(row, col);
+                    QObjectList objects = frameWidget->children();
+                    QCheckBox *cb;
+                    for (auto object : objects)
+                    {
+                        if (object->objectName() != "")
+                        {
+                            tinyxml2::XMLElement *day = xmlDoc->NewElement(object->objectName().toStdString().c_str());
+                            cb = frameWidget->findChild<QCheckBox*>(object->objectName());
+                            if (cb->isChecked())
+                                day->SetText("checked");
+                            else
+                                day->SetText("unchecked");
+
+                            new_col->InsertEndChild(day);
+                        }
+                    }
+                }
+
+
+                else if (col == 8)
+                {
+                    QWidget *frameWidget = ui->tableWidget->cellWidget(row, col);
+                    QObjectList objects = frameWidget->children();
+                    QCheckBox *cb;
+                    for (auto object : objects)
+                    {
+                        if (object->objectName() != "")
+                        {
+                            tinyxml2::XMLElement *day = xmlDoc->NewElement(object->objectName().toStdString().c_str());
+                            cb = frameWidget->findChild<QCheckBox*>(object->objectName());
+                            if (cb->isChecked())
+                                day->SetText("checked");
+                            else
+                                day->SetText("unchecked");
+
+                            new_col->InsertEndChild(day);
+                        }
+                    }
+                }
+
+                else if (ui->tableWidget->item(row, col))
                 {
                     QString cell_text = ui->tableWidget->item(row, col)->text();
                     new_col->SetText(cell_text.toStdString().c_str());
@@ -853,6 +1087,9 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::status_changed()
 {
+    if (!calculate_on)
+        return;
+
     int incomplete = 0, late = 0, complete = 0;
 
     QWidget *frame, *dateFrame;
@@ -884,6 +1121,9 @@ void MainWindow::status_changed()
 
 void MainWindow::set_date_color()
 {
+    if (!calculate_on)
+        return;
+
     for (int i=0; i<ui->tableWidget->rowCount(); ++i)
     {
         QWidget *dateFrame = ui->tableWidget->cellWidget(i, 5);
@@ -908,6 +1148,9 @@ void MainWindow::set_date_color()
 
 void MainWindow::on_tableWidget_itemChanged(QTableWidgetItem *item)
 {
+    if (!calculate_on)
+        return;
+
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();
 }
@@ -915,6 +1158,9 @@ void MainWindow::on_tableWidget_itemChanged(QTableWidgetItem *item)
 
 void MainWindow::on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
+    if (!calculate_on)
+        return;
+
     status_changed();
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->resizeColumnsToContents();

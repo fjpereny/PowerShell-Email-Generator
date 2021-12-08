@@ -479,7 +479,7 @@ public:
         todayEdit->setObjectName(QString::fromUtf8("todayEdit"));
         todayEdit->setReadOnly(true);
         todayEdit->setDateTime(QDateTime(QDate(2000, 1, 1), QTime(0, 0, 0)));
-        todayEdit->setCurrentSection(QDateTimeEdit::DaySection);
+        todayEdit->setCurrentSection(QDateTimeEdit::MonthSection);
 
         horizontalLayout_7->addWidget(todayEdit);
 
@@ -672,9 +672,9 @@ public:
         label_7->setText(QCoreApplication::translate("MainWindow", "Body", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "Task Data Table", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "Today", nullptr));
-        todayEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dddd,  MMMM dd, yyyy", nullptr));
+        todayEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "MMM-dd-yyyy", nullptr));
         label_20->setText(QCoreApplication::translate("MainWindow", "Last Update", nullptr));
-        lastUpdateDateEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "dddd, MMMM, dd, yyyy", nullptr));
+        lastUpdateDateEdit->setDisplayFormat(QCoreApplication::translate("MainWindow", "MMM-DD-yyyy", nullptr));
         label_18->setText(QCoreApplication::translate("MainWindow", "Incomplete Tasks", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "Late Tasks", nullptr));
         label_19->setText(QCoreApplication::translate("MainWindow", "Complete Tasks", nullptr));

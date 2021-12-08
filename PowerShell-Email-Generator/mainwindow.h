@@ -67,5 +67,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    bool *calculate_on;
 };
 #endif // MAINWINDOW_H

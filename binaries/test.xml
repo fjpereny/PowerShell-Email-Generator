@@ -1,46 +1,72 @@
 <root>
-    <save_date>Mon Dec 6 2021</save_date>
+    <save_date>2021.12.08</save_date>
     <project>
-        <project_name>Get Rich Quick</project_name>
-        <project_gate>Step 1</project_gate>
-        <project_gate_due>1-1-2022</project_gate_due>
-        <attachment_path>/home/attachments</attachment_path>
+        <project_name>sdfasfdaf</project_name>
+        <project_gate>fasdfas</project_gate>
+        <project_gate_due>sadfasdf</project_gate_due>
+        <incomplete_tasks>1</incomplete_tasks>
+        <late_tasks>1</late_tasks>
+        <complete_tasks>1</complete_tasks>
     </project>
     <email>
-        <to/>
-        <cc/>
-        <bcc/>
-        <subject>[PROJECT NAME] - [TASK]</subject>
-        <body>Hey there, this meail is to remind you to do your tasks ASAP!
-
-[OWNER]
-[TASK]
-[TASK DUE]
-[STATUS]
-
-If you don't do it ASAP, we are going to need to contact your boss!
-[MANAGER]
-[MANAGER EMAIL]</body>
-        <attachments/>
+        <subject>sadfas</subject>
+        <body></body>
+        <folder_path_1>asdfasf</folder_path_1>
+        <folder_path_2>asdfsadf</folder_path_2>
+        <folder_path_3>asdfas</folder_path_3>
+        <folder_path_4>asdfsa</folder_path_4>
+        <folder_path_5>asdfsadf</folder_path_5>
     </email>
     <task_table>
         <row_0>
-            <col_0>Cut Grass</col_0>
-            <col_1>Frank</col_1>
-            <col_2>f@cut.grass</col_2>
-            <col_3>Bob Tillman</col_3>
-            <col_4>bob@lawn.mower</col_4>
-            <col_5>Incomplete</col_5>
-            <col_6>12-15-21</col_6>
+            <task>asdfsadf</task>
+            <owner>asdfas</owner>
+            <owner_email>asdfsad</owner_email>
+            <manager>asdfsda</manager>
+            <manager_email>asdfsdaf</manager_email>
+            <due_date>2020.11.7</due_date>
+            <status>Complete</status>
+            <days>
+                <mon>checked</mon>
+                <tue>unchecked</tue>
+                <wed>checked</wed>
+                <thu>unchecked</thu>
+                <fri>checked</fri>
+                <sat>unchecked</sat>
+                <sun>checked</sun>
+            </days>
+            <attachments>
+                <folder_1>checked</folder_1>
+                <folder_2>unchecked</folder_2>
+                <folder_3>checked</folder_3>
+                <folder_4>unchecked</folder_4>
+                <folder_5>checked</folder_5>
+            </attachments>
         </row_0>
         <row_1>
-            <col_0>Check Couch</col_0>
-            <col_1>Anna</col_1>
-            <col_2>a@coin.cushion</col_2>
-            <col_3>Abe Lincoln</col_3>
-            <col_4>abe@penny.coin</col_4>
-            <col_5>Late</col_5>
-            <col_6>11-1-21</col_6>
+            <task>dsfsadfads</task>
+            <owner>sadfasd</owner>
+            <owner_email>asdfsa</owner_email>
+            <manager>asdfdsa</manager>
+            <manager_email>asdfsda</manager_email>
+            <due_date>2020.12.8</due_date>
+            <status>Incomplete</status>
+            <days>
+                <mon>unchecked</mon>
+                <tue>checked</tue>
+                <wed>unchecked</wed>
+                <thu>unchecked</thu>
+                <fri>checked</fri>
+                <sat>unchecked</sat>
+                <sun>checked</sun>
+            </days>
+            <attachments>
+                <folder_1>unchecked</folder_1>
+                <folder_2>unchecked</folder_2>
+                <folder_3>checked</folder_3>
+                <folder_4>checked</folder_4>
+                <folder_5>checked</folder_5>
+            </attachments>
         </row_1>
     </task_table>
 </root>

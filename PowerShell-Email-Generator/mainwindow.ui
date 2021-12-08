@@ -475,10 +475,10 @@
              </datetime>
             </property>
             <property name="currentSection">
-             <enum>QDateTimeEdit::DaySection</enum>
+             <enum>QDateTimeEdit::MonthSection</enum>
             </property>
             <property name="displayFormat">
-             <string>dddd,  MMMM dd, yyyy</string>
+             <string>MMM-dd-yyyy</string>
             </property>
            </widget>
           </item>
@@ -508,7 +508,7 @@
              <bool>true</bool>
             </property>
             <property name="displayFormat">
-             <string>dddd, MMMM, dd, yyyy</string>
+             <string>MMM-DD-yyyy</string>
             </property>
            </widget>
           </item>
